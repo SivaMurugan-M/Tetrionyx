@@ -1,0 +1,359 @@
+/* ================================================================
+   Header.css — Styles for the Tetrionyx Technologies header
+   ================================================================
+   Color Palette:
+     Primary ............. #2563EB
+     Secondary ........... #06B6D4
+     Text ................ #1E293B
+     Background .......... #FFFFFF
+     Button Hover ........ #1D4ED8
+   Typography:
+     Font Family ......... 'Poppins', sans-serif
+   ================================================================ */
+
+/* ---------- Google Font: Poppins ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* ================================================================
+   1. HEADER — sticky bar
+   ================================================================ */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: #ffffff;
+  border-bottom: 1px solid transparent;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Subtle shadow when user scrolls past the first few pixels */
+.header--scrolled {
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
+  border-bottom-color: #e2e8f0;
+}
+
+/* ================================================================
+   2. INNER WRAPPER — constrains content, aligns children
+   ================================================================ */
+.header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: min(1200px, calc(100% - 2rem));
+  margin-inline: auto;
+  padding: 0.75rem 0;
+  gap: 1.5rem;
+}
+
+/* ================================================================
+   3. BRAND — logo + company name
+   ================================================================ */
+.header__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  text-decoration: none;
+  color: #1e293b;
+  flex-shrink: 0;
+  transition: opacity 0.3s ease;
+}
+
+.header__brand:hover {
+  opacity: 0.85;
+}
+
+.header__logo {
+  width: auto;
+  height: 60px;
+  object-fit: contain;
+  display: block;
+}
+ 
+
+
+.header__company-name {
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: -0.01em;
+  color: #1e293b;
+  white-space: nowrap;
+}
+
+/* ================================================================
+   4. DESKTOP NAVIGATION
+   ================================================================ */
+.header__nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.header__nav-list {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.header__nav-item {
+  position: relative;
+}
+
+.header__nav-link {
+  display: inline-block;
+  padding: 0.5rem 0.875rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #475569;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: color 0.3s ease, background-color 0.3s ease;
+  position: relative;
+}
+
+.header__nav-link:hover {
+  color: #2563eb;
+  background-color: rgba(37, 99, 235, 0.06);
+}
+
+/* Active link — underline accent */
+.header__nav-link--active {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.header__nav-link--active::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2.5px;
+  border-radius: 2px;
+  background: linear-gradient(135deg, #2563eb, #06b6d4);
+}
+
+/* ================================================================
+   5. CTA BUTTON — Desktop
+   ================================================================ */
+.header__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem 1.5rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #2563eb, #1d7ae8);
+  border: none;
+  border-radius: 50px;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.25);
+}
+
+.header__cta:hover {
+  background: linear-gradient(135deg, #1d4ed8, #1a6dd1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
+}
+
+.header__cta:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+}
+
+/* ================================================================
+   6. HAMBURGER TOGGLE — hidden on desktop
+   ================================================================ */
+.header__menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  font-size: 1.5rem;
+  color: #1e293b;
+  background: transparent;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+  flex-shrink: 0;
+}
+
+.header__menu-toggle:hover {
+  color: #2563eb;
+  border-color: #2563eb;
+  background-color: rgba(37, 99, 235, 0.05);
+}
+
+/* ================================================================
+   7. MOBILE OVERLAY — dim background
+   ================================================================ */
+.header__mobile-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.header__mobile-overlay--open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ================================================================
+   8. MOBILE NAVIGATION PANEL — slide-in from right
+   ================================================================ */
+.header__mobile-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 999;
+  width: min(320px, 85vw);
+  height: 100vh;
+  padding: 5rem 1.5rem 2rem;
+  background: #ffffff;
+  box-shadow: -4px 0 30px rgba(0, 0, 0, 0.1);
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  font-family: 'Poppins', sans-serif;
+}
+
+.header__mobile-nav--open {
+  transform: translateX(0);
+}
+
+.header__mobile-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.header__mobile-item {
+  /* reset */
+}
+
+.header__mobile-link {
+  display: block;
+  padding: 0.875rem 1rem;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: #475569;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: color 0.3s ease, background-color 0.3s ease, padding-left 0.3s ease;
+}
+
+.header__mobile-link:hover {
+  color: #2563eb;
+  background-color: rgba(37, 99, 235, 0.06);
+  padding-left: 1.25rem;
+}
+
+/* Active link in mobile menu */
+.header__mobile-link--active {
+  color: #2563eb;
+  font-weight: 600;
+  background-color: rgba(37, 99, 235, 0.08);
+  border-left: 3px solid #2563eb;
+}
+
+/* ================================================================
+   9. MOBILE CTA — full-width button inside panel
+   ================================================================ */
+.header__mobile-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 0.875rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(135deg, #2563eb, #06b6d4);
+  border: none;
+  border-radius: 50px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.header__mobile-cta:hover {
+  background: linear-gradient(135deg, #1d4ed8, #0891b2);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+}
+
+/* ================================================================
+   10. RESPONSIVE — Tablet & Mobile (< 768px)
+   ================================================================ */
+@media (max-width: 991px) {
+  /* Hide desktop nav, show hamburger */
+  .header__nav {
+    display: none;
+  }
+
+  .header__cta {
+    display: none;
+  }
+
+  .header__menu-toggle {
+    display: flex;
+  }
+}
+
+/* ================================================================
+   11. RESPONSIVE — Fine-tune for very small screens
+   ================================================================ */
+@media (max-width: 480px) {
+  .header__company-name {
+    font-size: 1rem;
+  }
+
+  .header__logo {
+    height: 44px;
+  }
+
+  .header__inner {
+    padding: 0.5rem 0;
+  }
+}
+
+/* ================================================================
+   12. REDUCED MOTION — respect user preference
+   ================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .header__nav-link,
+  .header__cta,
+  .header__mobile-nav,
+  .header__mobile-overlay,
+  .header__mobile-link,
+  .header__mobile-cta,
+  .header__menu-toggle,
+  .header__brand {
+    transition: none;
+  }
+}
