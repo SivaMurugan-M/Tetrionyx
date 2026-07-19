@@ -3,6 +3,8 @@ import AboutSection from './components/AboutSection/AboutSection';
 import BrandIntro from './components/BrandIntro';
 import Header from './components/Header';
 import HeroBanner from './components/HeroBanner/HeroBanner';
+import ContactSection from './components/ContactSection/ContactSection';
+import Footer from './components/Footer';
 import { prefersReducedMotion } from './utils/motionPreference';
 import './App.css';
 
@@ -24,7 +26,9 @@ function App() {
         <main>
           <HeroBanner />
           <AboutSection />
+          <ContactSection />
         </main>
+        <Footer />
       </div>
 
       {introActive && (

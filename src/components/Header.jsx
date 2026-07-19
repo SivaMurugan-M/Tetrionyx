@@ -127,7 +127,11 @@ function Header() {
         </nav>
 
         {/* ---- Desktop CTA Button ---- */}
-        <Link className="header__cta" to="/contact">
+        <Link 
+          className="header__cta" 
+          to="#contact"
+          onClick={() => scrollToSection('#contact')}
+        >
           Get Started
         </Link>
 
@@ -172,7 +176,11 @@ function Header() {
         </ul>
 
         {/* Mobile CTA */}
-        <Link className="header__mobile-cta" to="/contact" onClick={closeMenu}>
+        <Link 
+          className="header__mobile-cta" 
+          to="#contact" 
+          onClick={() => scrollToSection('#contact')}
+        >
           Get Started
         </Link>
       </nav>
