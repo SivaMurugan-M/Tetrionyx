@@ -3,19 +3,20 @@
    ================================================================ */
 
 import { useState, useEffect, useCallback } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
 import logo from '../assets/logos/tetrionyx.svg';
+import { scrollToSection } from '../utils/scrollToSection';
 import './Header.css';
 
 /* Navigation link data — single source of truth */
 const NAV_LINKS = [
-  { label: 'Home', to: '#home' },
-  { label: 'About', to: '#about' },
-  { label: 'Services', to: '#services' },
-  { label: 'Solutions', to: '#solutions' },
-  { label: 'Careers', to: '#careers' },
-  { label: 'Contact', to: '#contact' },
+  { label: 'Home', to: '/#home', section: 'home' },
+  { label: 'About', to: '/#about', section: 'about' },
+  { label: 'Services', to: '/#services', section: 'services' },
+  { label: 'Solutions', to: '/#solutions', section: 'solutions' },
+  { label: 'Careers', to: '/#careers', section: 'careers' },
+  { label: 'Contact', to: '/#contact', section: 'contact' },
 ];
 
 function Header() {
@@ -25,6 +26,7 @@ function Header() {
   const [activeSection, setActiveSection] = useState('home');
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   /* ---------- scroll spy for active section highlight ---------- */
   useEffect(() => {
@@ -72,6 +74,18 @@ function Header() {
   const toggleMenu = useCallback(() => setMenuOpen((prev) => !prev), []);
   const closeMenu = useCallback(() => setMenuOpen(false), []);
 
+  const handleSectionClick = useCallback((event, section) => {
+    event.preventDefault();
+    setMenuOpen(false);
+    navigate(`/#${section}`);
+
+    // Always scroll explicitly. This also handles clicking the active link,
+    // where the URL hash does not change and React effects do not rerun.
+    window.requestAnimationFrame(() => {
+      scrollToSection(section);
+    });
+  }, [navigate]);
+
   /* ---------- render ---------- */
   return (
     <header
@@ -94,13 +108,14 @@ function Header() {
         {/* ---- Desktop Navigation ---- */}
         <nav className="header__nav" aria-label="Main navigation">
           <ul className="header__nav-list">
-            {NAV_LINKS.map(({ label, to }) => {
-              const isActive = to === `#${activeSection}`;
+            {NAV_LINKS.map(({ label, to, section }) => {
+              const isActive = section === activeSection;
               return (
                 <li key={to} className="header__nav-item">
                   <Link
                     className={`header__nav-link${isActive ? ' header__nav-link--active' : ''}`}
                     to={to}
+                    onClick={(event) => handleSectionClick(event, section)}
                   >
                     {label}
                   </Link>
@@ -139,14 +154,14 @@ function Header() {
         aria-label="Mobile navigation"
       >
         <ul className="header__mobile-list">
-          {NAV_LINKS.map(({ label, to }) => {
-            const isActive = to === `#${activeSection}`;
+          {NAV_LINKS.map(({ label, to, section }) => {
+            const isActive = section === activeSection;
             return (
               <li key={to} className="header__mobile-item">
                 <Link
                   className={`header__mobile-link${isActive ? ' header__mobile-link--active' : ''}`}
                   to={to}
-                  onClick={closeMenu}
+                  onClick={(event) => handleSectionClick(event, section)}
                 >
                   {label}
                 </Link>
