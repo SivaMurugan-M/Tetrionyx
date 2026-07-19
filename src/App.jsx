@@ -1,7 +1,9 @@
 import { useCallback, useState } from 'react';
 import BrandIntro from './components/BrandIntro';
-import AppRoutes from './routes/AppRoutes';
+import Header from './components/Header';
+import HeroBanner from './components/HeroBanner/HeroBanner';
 import { prefersReducedMotion } from './utils/motionPreference';
+import './App.css';
 
 function App() {
   const [introActive, setIntroActive] = useState(() => !prefersReducedMotion());
@@ -12,8 +14,15 @@ function App() {
 
   return (
     <>
-      <div className={`app-view${homepageVisible ? ' app-view--visible' : ''}`}>
-        <AppRoutes />
+      <div
+        className={`app app-view${homepageVisible ? ' app-view--visible' : ''}`}
+        aria-hidden={!homepageVisible}
+        inert={homepageVisible ? undefined : ''}
+      >
+        <Header />
+        <main>
+          <HeroBanner />
+        </main>
       </div>
 
       {introActive && (
