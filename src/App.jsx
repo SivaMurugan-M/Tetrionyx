@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import AboutSection from './components/AboutSection/AboutSection';
 import BrandIntro from './components/BrandIntro';
 import Header from './components/Header';
 import HeroBanner from './components/HeroBanner/HeroBanner';
@@ -22,6 +23,7 @@ function App() {
         <Header />
         <main>
           <HeroBanner />
+          <AboutSection />
         </main>
       </div>
 
