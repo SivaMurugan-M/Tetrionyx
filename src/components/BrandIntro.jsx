@@ -30,6 +30,9 @@ function BrandIntro({ onReveal, onComplete }) {
   const [isExiting, setIsExiting] = useState(false);
 
   useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
     const revealTimer = window.setTimeout(() => {
       onReveal();
       setIsExiting(true);
@@ -40,6 +43,7 @@ function BrandIntro({ onReveal, onComplete }) {
     return () => {
       window.clearTimeout(revealTimer);
       window.clearTimeout(completeTimer);
+      document.body.style.overflow = previousOverflow;
     };
   }, [onComplete, onReveal]);
 
