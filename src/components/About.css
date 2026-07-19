@@ -1,0 +1,242 @@
+/* =============================================================
+   About.css
+   Styles for the Tetrionyx Technologies "About" section.
+   Uses only Flexbox + CSS Grid (no external CSS frameworks).
+   ============================================================= */
+
+:root {
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-text: #1e293b;
+  --color-text-muted: #475569;
+  --color-bg: #ffffff;
+  --color-card-bg: #ffffff;
+  --color-icon-bg: #eaf0fe;
+  --transition-speed: 0.3s;
+}
+
+/* ---------------- Section wrapper ---------------- */
+.about-section {
+  width: 100%;
+  background-color: var(--color-bg);
+  padding: 96px 24px;
+  box-sizing: border-box;
+}
+
+.about-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 64px;
+}
+
+/* ---------------- LEFT SECTION ---------------- */
+.about-left {
+  flex: 1 1 420px;
+  min-width: 320px;
+}
+
+.about-eyebrow {
+  color: var(--color-primary);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 16px 0;
+}
+
+.about-heading {
+  font-size: clamp(2.2rem, 4vw, 3.25rem);
+  line-height: 1.15;
+  font-weight: 800;
+  color: var(--color-text);
+  margin: 0 0 24px 0;
+}
+
+.highlight-text {
+  color: var(--color-primary);
+}
+
+.about-description {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--color-text-muted);
+  max-width: 560px;
+  margin: 0 0 36px 0;
+}
+
+/* Primary CTA button */
+.about-btn {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-primary-dark) 100%
+  );
+  border: none;
+  border-radius: 999px;
+  padding: 14px 32px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+  transition: transform var(--transition-speed) ease,
+    box-shadow var(--transition-speed) ease, filter var(--transition-speed) ease;
+}
+
+.about-btn:hover,
+.about-btn:focus-visible {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(37, 99, 235, 0.35);
+  filter: brightness(1.05);
+}
+
+.about-btn:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 2px;
+}
+
+.about-btn:active {
+  transform: translateY(-1px);
+}
+
+/* ---------------- RIGHT SECTION ---------------- */
+.about-right {
+  flex: 1 1 420px;
+  min-width: 320px;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.feature-card {
+  background-color: var(--color-card-bg);
+  border-radius: 20px;
+  padding: 32px 24px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+  text-align: left;
+  cursor: default;
+  transition: transform var(--transition-speed) ease,
+    box-shadow var(--transition-speed) ease;
+  outline: none;
+}
+
+.feature-card:hover,
+.feature-card:focus-visible {
+  transform: translateY(-8px);
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.12);
+}
+
+.feature-card:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.feature-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--color-icon-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  transition: background-color var(--transition-speed) ease;
+}
+
+.feature-icon {
+  font-size: 24px;
+  color: var(--color-primary);
+  display: flex;
+  transition: transform var(--transition-speed) ease;
+}
+
+.feature-card:hover .feature-icon,
+.feature-card:focus-visible .feature-icon {
+  transform: scale(1.15);
+}
+
+.feature-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 10px 0;
+}
+
+.feature-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+/* =============================================================
+   RESPONSIVE BREAKPOINTS
+   ============================================================= */
+
+/* ---------------- Tablet ---------------- */
+@media (max-width: 1024px) {
+  .about-container {
+    gap: 48px;
+  }
+
+  .about-section {
+    padding: 72px 20px;
+  }
+}
+
+@media (max-width: 900px) {
+  .about-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .about-left,
+  .about-right {
+    flex: 1 1 100%;
+  }
+
+  /* Two cards per row on tablet, as specified */
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ---------------- Mobile ---------------- */
+@media (max-width: 600px) {
+  .about-section {
+    padding: 56px 16px;
+  }
+
+  .about-left {
+    text-align: center;
+  }
+
+  .about-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .about-btn {
+    width: 100%;
+  }
+
+  /* Single-column, stacked, centered on mobile */
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-card {
+    text-align: center;
+  }
+
+  .feature-icon-wrapper {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
