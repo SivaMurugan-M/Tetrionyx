@@ -62,7 +62,7 @@ function Header() {
   /* ---------- close menu on route change ---------- */
   useEffect(() => {
     setMenuOpen(false);
-  }, [location.pathname]);
+  }, [location.hash, location.pathname]);
 
   /* ---------- lock body scroll when mobile menu is open ---------- */
   useEffect(() => {
@@ -73,18 +73,6 @@ function Header() {
   /* ---------- toggle handler ---------- */
   const toggleMenu = useCallback(() => setMenuOpen((prev) => !prev), []);
   const closeMenu = useCallback(() => setMenuOpen(false), []);
-
-  const handleSectionClick = useCallback((event, section) => {
-    event.preventDefault();
-    setMenuOpen(false);
-    navigate(`/#${section}`);
-
-    // Always scroll explicitly. This also handles clicking the active link,
-    // where the URL hash does not change and React effects do not rerun.
-    window.requestAnimationFrame(() => {
-      scrollToSection(section);
-    });
-  }, [navigate]);
 
   /* ---------- render ---------- */
   return (
@@ -115,7 +103,6 @@ function Header() {
                   <Link
                     className={`header__nav-link${isActive ? ' header__nav-link--active' : ''}`}
                     to={to}
-                    onClick={(event) => handleSectionClick(event, section)}
                   >
                     {label}
                   </Link>
@@ -161,7 +148,7 @@ function Header() {
                 <Link
                   className={`header__mobile-link${isActive ? ' header__mobile-link--active' : ''}`}
                   to={to}
-                  onClick={(event) => handleSectionClick(event, section)}
+                  onClick={closeMenu}
                 >
                   {label}
                 </Link>
