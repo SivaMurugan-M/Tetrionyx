@@ -5,7 +5,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
-import logo from '../assets/logos/tetrionyx-wings.png';
+import logo from '../assets/logos/tetrionyx.svg';
 import './Header.css';
 
 /* Navigation link data — single source of truth */
