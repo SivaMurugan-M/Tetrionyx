@@ -4,7 +4,7 @@ import './HeroBanner.css';
 
 function HeroBanner() {
   return (
-    <section className="hero-banner" aria-labelledby="hero-banner-title">
+    <section className="hero-banner" id="home" aria-labelledby="hero-banner-title">
       <div className="hero-banner__tech-backdrop" aria-hidden="true">
         <span className="hero-banner__tech-orbit hero-banner__tech-orbit--large" />
         <span className="hero-banner__tech-orbit hero-banner__tech-orbit--small" />

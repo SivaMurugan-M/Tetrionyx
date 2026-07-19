@@ -60,7 +60,7 @@ function Header() {
   /* ---------- close menu on route change ---------- */
   useEffect(() => {
     setMenuOpen(false);
-  }, [location.pathname]);
+  }, [location.hash, location.pathname]);
 
   /* ---------- lock body scroll when mobile menu is open ---------- */
   useEffect(() => {
@@ -71,6 +71,21 @@ function Header() {
   /* ---------- toggle handler ---------- */
   const toggleMenu = useCallback(() => setMenuOpen((prev) => !prev), []);
   const closeMenu = useCallback(() => setMenuOpen(false), []);
+  const scrollToSection = useCallback((target) => {
+    closeMenu();
+
+    window.requestAnimationFrame(() => {
+      const section = document.getElementById(target.slice(1));
+      const reducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      section?.scrollIntoView({
+        behavior: reducedMotion ? 'auto' : 'smooth',
+        block: 'start',
+      });
+    });
+  }, [closeMenu]);
 
   /* ---------- render ---------- */
   return (
@@ -101,6 +116,7 @@ function Header() {
                   <Link
                     className={`header__nav-link${isActive ? ' header__nav-link--active' : ''}`}
                     to={to}
+                    onClick={() => scrollToSection(to)}
                   >
                     {label}
                   </Link>
@@ -146,7 +162,7 @@ function Header() {
                 <Link
                   className={`header__mobile-link${isActive ? ' header__mobile-link--active' : ''}`}
                   to={to}
-                  onClick={closeMenu}
+                  onClick={() => scrollToSection(to)}
                 >
                   {label}
                 </Link>
