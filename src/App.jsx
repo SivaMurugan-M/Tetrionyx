@@ -2,9 +2,11 @@ import { useCallback, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AboutSection from './components/AboutSection/AboutSection';
 import BrandIntro from './components/BrandIntro';
+import CareersSection from './components/CareersSection/CareersSection';
 import Header from './components/Header';
 import HeroBanner from './components/HeroBanner/HeroBanner';
 import ServicesSection from './components/ServicesSection/ServicesSection';
+import ProductsSection from './components/ProductsSection/ProductsSection';
 import UiUxDesignPage from './pages/UiUxDesignPage';
 import WebDevelopmentPage from './pages/WebDevelopmentPage';
 import MobileAppDesignPage from './pages/MobileAppDesignPage';
@@ -19,6 +21,8 @@ function HomeSections() {
       <HeroBanner />
       <AboutSection />
       <ServicesSection />
+      <ProductsSection />
+      <CareersSection />
     </>
   );
 }

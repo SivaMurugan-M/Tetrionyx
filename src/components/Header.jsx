@@ -13,7 +13,7 @@ const NAV_LINKS = [
   { label: 'Home', to: '/#home' },
   { label: 'About', to: '/#about' },
   { label: 'Services', to: '/#services' },
-  { label: 'Solutions', to: '/#solutions' },
+  { label: 'Product', to: '/#products' },
   { label: 'Careers', to: '/#careers' },
   { label: 'Contact', to: '/#contact' },
 ];
@@ -29,7 +29,7 @@ function Header() {
   /* ---------- scroll spy for active section highlight ---------- */
   useEffect(() => {
     const handleScrollActive = () => {
-      const sections = ['home', 'about', 'services', 'solutions', 'careers', 'contact'];
+      const sections = ['home', 'about', 'services', 'products', 'careers', 'contact'];
       const scrollPosition = window.scrollY + 180; // detection offset
 
       for (const section of sections) {
