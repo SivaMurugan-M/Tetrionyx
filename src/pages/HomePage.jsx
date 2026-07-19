@@ -1,30 +1,18 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import About from '../components/About';
+import { scrollToSection } from '../utils/scrollToSection';
 
 function HomePage() {
   const { hash } = useLocation();
 
   useEffect(() => {
-    if (hash) {
-      const targetId = hash.substring(1);
-      const element = document.getElementById(targetId);
-      if (element) {
-        const headerHeight = document.querySelector('.header')?.offsetHeight || 84;
-        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-        const offsetPosition = elementPosition - headerHeight;
+    const targetId = hash ? hash.substring(1) : 'home';
+    const animationFrame = window.requestAnimationFrame(() => {
+      scrollToSection(targetId);
+    });
 
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        });
-      }
-    } else {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    }
+    return () => window.cancelAnimationFrame(animationFrame);
   }, [hash]);
 
   return (

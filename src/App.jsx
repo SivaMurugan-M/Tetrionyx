@@ -5,6 +5,7 @@ import BrandIntro from './components/BrandIntro';
 import CareersSection from './components/CareersSection/CareersSection';
 import Header from './components/Header';
 import HeroBanner from './components/HeroBanner/HeroBanner';
+<<<<<<< HEAD
 import ServicesSection from './components/ServicesSection/ServicesSection';
 import ProductsSection from './components/ProductsSection/ProductsSection';
 import UiUxDesignPage from './pages/UiUxDesignPage';
@@ -12,6 +13,10 @@ import WebDevelopmentPage from './pages/WebDevelopmentPage';
 import MobileAppDesignPage from './pages/MobileAppDesignPage';
 import VideoEditingPage from './pages/VideoEditingPage';
 import BrandingMarketingPage from './pages/BrandingMarketingPage';
+=======
+import ContactSection from './components/ContactSection/ContactSection';
+import Footer from './components/Footer';
+>>>>>>> main
 import { prefersReducedMotion } from './utils/motionPreference';
 import './App.css';
 
@@ -21,8 +26,11 @@ function HomeSections() {
       <HeroBanner />
       <AboutSection />
       <ServicesSection />
+<<<<<<< HEAD
       <ProductsSection />
       <CareersSection />
+=======
+>>>>>>> main
     </>
   );
 }
@@ -54,7 +62,9 @@ function App() {
           </Routes>
           <HeroBanner />
           <AboutSection />
+          <ContactSection />
         </main>
+        <Footer />
       </div>
 
       {introActive && (
