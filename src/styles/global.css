@@ -12,6 +12,37 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f8fafc;
+  overflow-x: hidden;
+  scroll-padding-top: 84px; /* Offset for desktop sticky header */
+}
+
+@media (max-width: 480px) {
+  html {
+    scroll-padding-top: 68px; /* Offset for mobile sticky header */
+  }
+}
+
+/* Custom Scrollbar for Chromium Browsers (Chrome, Safari, Edge, Brave) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 9999px;
+  border: 2px solid #f8fafc;
+  transition: background-color 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8;
 }
 
 body {
@@ -70,9 +101,16 @@ a {
 
 .hero {
   display: grid;
-  min-height: 65vh;
+  min-height: 60vh;
   align-items: center;
-  padding: 5rem 0;
+  padding: 4rem 0;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    min-height: calc(100vh - 145px); /* Header is ~84px, Footer is ~57px. Sized to fit exactly in first viewport */
+    padding: 0;
+  }
 }
 
 .hero h1 {
