@@ -11,12 +11,12 @@ import './Header.css';
 
 /* Navigation link data — single source of truth */
 const NAV_LINKS = [
-  { label: 'Home', to: '/#home', section: 'home' },
-  { label: 'About', to: '/#about', section: 'about' },
-  { label: 'Services', to: '/#services', section: 'services' },
-  { label: 'Solutions', to: '/#solutions', section: 'solutions' },
-  { label: 'Careers', to: '/#careers', section: 'careers' },
-  { label: 'Contact', to: '/#contact', section: 'contact' },
+  { label: 'Home', to: '#home' },
+  { label: 'About', to: '#about' },
+  { label: 'Services', to: '#services' },
+  { label: 'Solutions', to: '#solutions' },
+  { label: 'Careers', to: '#careers' },
+  { label: 'Contact', to: '#contact' },
 ];
 
 function Header() {
@@ -64,6 +64,24 @@ function Header() {
     setMenuOpen(false);
   }, [location.hash, location.pathname]);
 
+  useEffect(() => {
+    if (location.pathname !== '/' || !location.hash) return undefined;
+
+    const frame = window.requestAnimationFrame(() => {
+      const section = document.getElementById(location.hash.slice(1));
+      const reducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      section?.scrollIntoView({
+        behavior: reducedMotion ? 'auto' : 'smooth',
+        block: 'start',
+      });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [location.hash, location.pathname]);
+
   /* ---------- lock body scroll when mobile menu is open ---------- */
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
@@ -73,6 +91,21 @@ function Header() {
   /* ---------- toggle handler ---------- */
   const toggleMenu = useCallback(() => setMenuOpen((prev) => !prev), []);
   const closeMenu = useCallback(() => setMenuOpen(false), []);
+  const scrollToSection = useCallback((target) => {
+    closeMenu();
+
+    window.requestAnimationFrame(() => {
+      const section = document.getElementById(target.slice(1));
+      const reducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      section?.scrollIntoView({
+        behavior: reducedMotion ? 'auto' : 'smooth',
+        block: 'start',
+      });
+    });
+  }, [closeMenu]);
 
   /* ---------- render ---------- */
   return (
@@ -82,7 +115,12 @@ function Header() {
     >
       <div className="header__inner">
         {/* ---- Brand / Logo ---- */}
-        <Link className="header__brand" to="/" aria-label="Tetrionyx home">
+        <Link
+          className="header__brand"
+          to="/#home"
+          aria-label="Tetrionyx home"
+          onClick={() => scrollToSection('/#home')}
+        >
           <img
             className="header__logo"
             src={logo}
@@ -96,8 +134,8 @@ function Header() {
         {/* ---- Desktop Navigation ---- */}
         <nav className="header__nav" aria-label="Main navigation">
           <ul className="header__nav-list">
-            {NAV_LINKS.map(({ label, to, section }) => {
-              const isActive = section === activeSection;
+            {NAV_LINKS.map(({ label, to }) => {
+              const isActive = to === `#${activeSection}`;
               return (
                 <li key={to} className="header__nav-item">
                   <Link
@@ -141,8 +179,8 @@ function Header() {
         aria-label="Mobile navigation"
       >
         <ul className="header__mobile-list">
-          {NAV_LINKS.map(({ label, to, section }) => {
-            const isActive = section === activeSection;
+          {NAV_LINKS.map(({ label, to }) => {
+            const isActive = to === `#${activeSection}`;
             return (
               <li key={to} className="header__mobile-item">
                 <Link
