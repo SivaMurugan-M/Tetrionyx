@@ -2,6 +2,7 @@ import { useCallback, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AboutSection from './components/AboutSection/AboutSection';
 import BrandIntro from './components/BrandIntro';
+import CareersSection from './components/CareersSection/CareersSection';
 import Header from './components/Header';
 import HeroBanner from './components/HeroBanner/HeroBanner';
 import ContactSection from './components/ContactSection/ContactSection';
@@ -35,6 +36,15 @@ function App() {
       >
         <Header />
         <main>
+          <Routes>
+            <Route path="/" element={<HomeSections />} />
+            <Route path="/services/ui-ux-design" element={<UiUxDesignPage />} />
+            <Route path="/services/web-development" element={<WebDevelopmentPage />} />
+            <Route path="/services/mobile-app-design" element={<MobileAppDesignPage />} />
+            <Route path="/services/video-editing" element={<VideoEditingPage />} />
+            <Route path="/services/branding-marketing" element={<BrandingMarketingPage />} />
+            <Route path="*" element={<HomeSections />} />
+          </Routes>
           <HeroBanner />
           <AboutSection />
           <ContactSection />

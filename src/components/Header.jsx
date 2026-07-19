@@ -10,12 +10,12 @@ import './Header.css';
 
 /* Navigation link data — single source of truth */
 const NAV_LINKS = [
-  { label: 'Home', to: '#home' },
-  { label: 'About', to: '#about' },
-  { label: 'Services', to: '#services' },
-  { label: 'Solutions', to: '#solutions' },
-  { label: 'Careers', to: '#careers' },
-  { label: 'Contact', to: '#contact' },
+  { label: 'Home', to: '/#home' },
+  { label: 'About', to: '/#about' },
+  { label: 'Services', to: '/#services' },
+  { label: 'Product', to: '/#products' },
+  { label: 'Careers', to: '/#careers' },
+  { label: 'Contact', to: '/#contact' },
 ];
 
 function Header() {
@@ -29,7 +29,7 @@ function Header() {
   /* ---------- scroll spy for active section highlight ---------- */
   useEffect(() => {
     const handleScrollActive = () => {
-      const sections = ['home', 'about', 'services', 'solutions', 'careers', 'contact'];
+      const sections = ['home', 'about', 'services', 'products', 'careers', 'contact'];
       const scrollPosition = window.scrollY + 180; // detection offset
 
       for (const section of sections) {
@@ -93,6 +93,8 @@ function Header() {
     closeMenu();
 
     window.requestAnimationFrame(() => {
+      const sectionId = target.split('#')[1];
+      const section = document.getElementById(sectionId);
       const section = document.getElementById(target.slice(1));
       const reducedMotion = window.matchMedia(
         '(prefers-reduced-motion: reduce)'
@@ -133,7 +135,7 @@ function Header() {
         <nav className="header__nav" aria-label="Main navigation">
           <ul className="header__nav-list">
             {NAV_LINKS.map(({ label, to }) => {
-              const isActive = to === `#${activeSection}`;
+              const isActive = location.pathname === '/' && to.endsWith(`#${activeSection}`);
               return (
                 <li key={to} className="header__nav-item">
                   <Link
@@ -182,7 +184,7 @@ function Header() {
       >
         <ul className="header__mobile-list">
           {NAV_LINKS.map(({ label, to }) => {
-            const isActive = to === `#${activeSection}`;
+            const isActive = location.pathname === '/' && to.endsWith(`#${activeSection}`);
             return (
               <li key={to} className="header__mobile-item">
                 <Link
