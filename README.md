@@ -11,6 +11,8 @@ The official static website for Tetrionyx, built as a clean and maintainable Cre
 - Client-side routing
 - Centralized global styling
 - Dedicated folders for images, icons, logos, and fonts
+- Premium first-visit brand animation with per-letter motion
+- Session-based intro playback with reduced-motion support
 - Production build support through Create React App
 
 ## Technologies Used
@@ -80,8 +82,10 @@ tetrionyx-website/
 |   |   |-- images/
 |   |   |   `-- .gitkeep
 |   |   `-- logos/
-|   |       `-- .gitkeep
+|   |       |-- tetrionyx-t.png
+|   |       `-- tetrionyx-wings.png
 |   |-- components/
+|   |   |-- BrandIntro.jsx
 |   |   |-- Footer.jsx
 |   |   `-- Header.jsx
 |   |-- layouts/
@@ -91,9 +95,10 @@ tetrionyx-website/
 |   |-- routes/
 |   |   `-- AppRoutes.jsx
 |   |-- styles/
+|   |   |-- brand-intro.css
 |   |   `-- global.css
 |   |-- utils/
-|   |   `-- .gitkeep
+|   |   `-- motionPreference.js
 |   |-- App.jsx
 |   `-- index.js
 |-- .gitignore
@@ -117,6 +122,19 @@ tetrionyx-website/
 - `src/routes/` keeps the route configuration separate from the application entry point.
 - `src/styles/` contains global and shared CSS.
 - `src/utils/` contains reusable, framework-independent helper functions when the project needs them.
+
+## Landing Animation
+
+`BrandIntro.jsx` controls the intro sequence and renders each letter of the company name independently. `brand-intro.css` contains the logo, lighting, particle, letter, and transition effects.
+
+The intro lasts 4.6 seconds and plays whenever the page is loaded or refreshed. Visitors who prefer reduced motion are taken directly to the homepage.
+
+To customize the sequence:
+
+- Update `INTRO_TIMING` in `src/components/BrandIntro.jsx` for the React reveal and completion timers.
+- Keep those values aligned with the timing custom properties near the top of `src/styles/brand-intro.css`.
+- Change the `--intro-*` color properties in `brand-intro.css` to adjust the animation palette.
+- Edit the `PARTICLES` array in `BrandIntro.jsx` to change particle count, position, delay, or size.
 
 ### Important Root Files
 
