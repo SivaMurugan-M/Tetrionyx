@@ -1,84 +1,83 @@
-import React from "react";
-import { FaLightbulb, FaUsers, FaPalette, FaChartLine } from "react-icons/fa";
-import "./About.css";
+/* ================================================================
+   About.jsx — Premium, responsive About section for Tetrionyx Technologies
+   ================================================================ */
 
-// Static data for the feature cards.
-// Keeping this as a config array (instead of hardcoding 4 JSX blocks)
-// makes the grid easy to extend/edit later.
-const features = [
+import React from 'react';
+import { FaLightbulb, FaUsers, FaPalette, FaChartLine } from 'react-icons/fa';
+import './About.css';
+
+/**
+ * Feature pillars defining the core values and capabilities of Tetrionyx
+ */
+const FEATURES = [
   {
-    id: "innovation",
-    icon: <FaLightbulb aria-hidden="true" />,
-    title: "Innovation",
-    description:
-      "We embrace new ideas and cutting-edge technologies to build future-ready digital solutions.",
+    id: 'innovation',
+    Icon: FaLightbulb,
+    title: 'Innovation',
+    description: 'We embrace new ideas and cutting-edge technologies to build future-ready digital solutions.',
+    color: 'green',
   },
   {
-    id: "collaboration",
-    icon: <FaUsers aria-hidden="true" />,
-    title: "Collaboration",
-    description:
-      "We believe teamwork, transparency, and strong partnerships create successful outcomes.",
+    id: 'collaboration',
+    Icon: FaUsers,
+    title: 'Collaboration',
+    description: 'We believe teamwork, transparency, and strong partnerships create successful outcomes.',
+    color: 'yellow',
   },
   {
-    id: "creativity",
-    icon: <FaPalette aria-hidden="true" />,
-    title: "Creativity",
-    description:
-      "We design engaging, user-focused solutions that inspire innovation and deliver exceptional experiences.",
+    id: 'creativity',
+    Icon: FaPalette,
+    title: 'Creativity',
+    description: 'We design engaging, user-focused solutions that inspire innovation and deliver exceptional experiences.',
+    color: 'blue',
   },
   {
-    id: "growth",
-    icon: <FaChartLine aria-hidden="true" />,
-    title: "Growth",
-    description:
-      "We are committed to helping our clients and our team achieve sustainable growth through technology.",
+    id: 'growth',
+    Icon: FaChartLine,
+    title: 'Growth',
+    description: 'We are committed to helping our clients and our team achieve sustainable growth through technology.',
+    color: 'red',
   },
 ];
 
-function About() {
+function About({ id }) {
   return (
-    <section className="about-section" aria-labelledby="about-heading">
-      <div className="about-container">
-        {/* ---------------- LEFT SECTION ---------------- */}
-        <div className="about-left">
-          <p className="about-eyebrow">ABOUT US</p>
-
-          <h1 id="about-heading" className="about-heading">
-            Four Minds.
-            <br />
-            One <span className="highlight-text">Vision.</span>
-            <br />
-            Limitless <span className="highlight-text">Impact.</span>
+    <section className="about" id={id} aria-labelledby="about-heading">
+      <div className="about__container container">
+        {/* Left Column: Context & Brand message */}
+        <div className="about__content">
+          <span className="about__eyebrow">ABOUT US</span>
+          <h1 id="about-heading" className="about__heading">
+            Four Minds.<br />
+            One <span className="about__accent">Vision</span>.<br />
+            Limitless <span className="about__accent">Impact</span>.
           </h1>
-
-          <p className="about-description">
-            Tetrionyx Technologies was founded by four passionate innovators
-            with a shared vision of building intelligent, scalable, and
-            impactful digital solutions. We specialize in AI, web
-            development, mobile applications, cloud computing, cybersecurity,
-            and digital transformation, helping businesses grow through
-            innovative technology.
+          <p className="about__description">
+            Tetrionyx Technologies was founded by four passionate innovators with a shared vision of 
+            building intelligent, scalable, and impactful digital solutions. We specialize in AI, 
+            web development, mobile applications, cloud computing, cybersecurity, and digital transformation, 
+            helping businesses grow through innovative technology.
           </p>
-
-          <button type="button" className="about-btn">
+          <button 
+            className="about__cta" 
+            type="button" 
+            aria-label="Know more about Tetrionyx Technologies"
+          >
             Know More
           </button>
         </div>
 
-        {/* ---------------- RIGHT SECTION ---------------- */}
-        <div className="about-right">
-          <div className="feature-grid">
-            {features.map((feature) => (
-              <article className="feature-card" key={feature.id} tabIndex={0}>
-                <div className="feature-icon-wrapper">
-                  <span className="feature-icon">{feature.icon}</span>
-                </div>
-                <h2 className="feature-title">{feature.title}</h2>
-                <p className="feature-description">{feature.description}</p>
-              </article>
-            ))}
-          </div>
+        {/* Right Column: Value Grid */}
+        <div className="about__grid">
+          {FEATURES.map(({ id, Icon, title, description, color }) => (
+            <div key={id} className="about__card">
+              <div className={`about__icon-box icon-${color}`} aria-hidden="true">
+                <Icon className={`about__icon icon-${color}`} />
+              </div>
+              <h3 className="about__card-title">{title}</h3>
+              <p className="about__card-description">{description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
