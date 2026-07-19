@@ -3,6 +3,22 @@ import bannerArtwork from '../../assets/images/tetrionyx-banner.png';
 import './HeroBanner.css';
 
 function HeroBanner() {
+  const handleGetStartedClick = (e) => {
+    e.preventDefault();
+    const section = document.getElementById('contact');
+    if (section) {
+      const headerHeight = document.querySelector('.header')?.offsetHeight || 85;
+      const sectionPosition = section.getBoundingClientRect().top + window.pageYOffset;
+      const offsetPosition = sectionPosition - headerHeight;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: reducedMotion ? 'auto' : 'smooth'
+      });
+    }
+  };
+
   return (
     <section className="hero-banner" id="home" aria-labelledby="hero-banner-title">
       <div className="hero-banner__tech-backdrop" aria-hidden="true">
@@ -59,7 +75,8 @@ function HeroBanner() {
           <div className="hero-banner__actions" aria-label="Hero actions">
             <Link
               className="hero-banner__button hero-banner__button--primary"
-              to="/contact"
+              to="#contact"
+              onClick={handleGetStartedClick}
             >
               Get Started
             </Link>
