@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import AboutSection from './components/AboutSection/AboutSection';
 import BrandIntro from './components/BrandIntro';
 import Header from './components/Header';
@@ -7,6 +8,16 @@ import ContactSection from './components/ContactSection/ContactSection';
 import Footer from './components/Footer';
 import { prefersReducedMotion } from './utils/motionPreference';
 import './App.css';
+
+function HomeSections() {
+  return (
+    <>
+      <HeroBanner />
+      <AboutSection />
+      <ServicesSection />
+    </>
+  );
+}
 
 function App() {
   const [introActive, setIntroActive] = useState(() => !prefersReducedMotion());

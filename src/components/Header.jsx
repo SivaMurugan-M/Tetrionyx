@@ -62,6 +62,24 @@ function Header() {
     setMenuOpen(false);
   }, [location.hash, location.pathname]);
 
+  useEffect(() => {
+    if (location.pathname !== '/' || !location.hash) return undefined;
+
+    const frame = window.requestAnimationFrame(() => {
+      const section = document.getElementById(location.hash.slice(1));
+      const reducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      section?.scrollIntoView({
+        behavior: reducedMotion ? 'auto' : 'smooth',
+        block: 'start',
+      });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [location.hash, location.pathname]);
+
   /* ---------- lock body scroll when mobile menu is open ---------- */
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
@@ -95,7 +113,12 @@ function Header() {
     >
       <div className="header__inner">
         {/* ---- Brand / Logo ---- */}
-        <Link className="header__brand" to="/" aria-label="Tetrionyx home">
+        <Link
+          className="header__brand"
+          to="/#home"
+          aria-label="Tetrionyx home"
+          onClick={() => scrollToSection('/#home')}
+        >
           <img
             className="header__logo"
             src={logo}
@@ -116,7 +139,6 @@ function Header() {
                   <Link
                     className={`header__nav-link${isActive ? ' header__nav-link--active' : ''}`}
                     to={to}
-                    onClick={() => scrollToSection(to)}
                   >
                     {label}
                   </Link>
@@ -166,7 +188,7 @@ function Header() {
                 <Link
                   className={`header__mobile-link${isActive ? ' header__mobile-link--active' : ''}`}
                   to={to}
-                  onClick={() => scrollToSection(to)}
+                  onClick={closeMenu}
                 >
                   {label}
                 </Link>
