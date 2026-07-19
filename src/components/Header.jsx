@@ -10,12 +10,12 @@ import './Header.css';
 
 /* Navigation link data — single source of truth */
 const NAV_LINKS = [
-  { label: 'Home', to: '#home' },
-  { label: 'About', to: '#about' },
-  { label: 'Services', to: '#services' },
-  { label: 'Solutions', to: '#solutions' },
-  { label: 'Careers', to: '#careers' },
-  { label: 'Contact', to: '#contact' },
+  { label: 'Home', to: '/#home' },
+  { label: 'About', to: '/#about' },
+  { label: 'Services', to: '/#services' },
+  { label: 'Solutions', to: '/#solutions' },
+  { label: 'Careers', to: '/#careers' },
+  { label: 'Contact', to: '/#contact' },
 ];
 
 function Header() {
@@ -62,6 +62,24 @@ function Header() {
     setMenuOpen(false);
   }, [location.hash, location.pathname]);
 
+  useEffect(() => {
+    if (location.pathname !== '/' || !location.hash) return undefined;
+
+    const frame = window.requestAnimationFrame(() => {
+      const section = document.getElementById(location.hash.slice(1));
+      const reducedMotion = window.matchMedia(
+        '(prefers-reduced-motion: reduce)'
+      ).matches;
+
+      section?.scrollIntoView({
+        behavior: reducedMotion ? 'auto' : 'smooth',
+        block: 'start',
+      });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [location.hash, location.pathname]);
+
   /* ---------- lock body scroll when mobile menu is open ---------- */
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
@@ -75,7 +93,8 @@ function Header() {
     closeMenu();
 
     window.requestAnimationFrame(() => {
-      const section = document.getElementById(target.slice(1));
+      const sectionId = target.split('#')[1];
+      const section = document.getElementById(sectionId);
       const reducedMotion = window.matchMedia(
         '(prefers-reduced-motion: reduce)'
       ).matches;
@@ -95,7 +114,12 @@ function Header() {
     >
       <div className="header__inner">
         {/* ---- Brand / Logo ---- */}
-        <Link className="header__brand" to="/" aria-label="Tetrionyx home">
+        <Link
+          className="header__brand"
+          to="/#home"
+          aria-label="Tetrionyx home"
+          onClick={() => scrollToSection('/#home')}
+        >
           <img
             className="header__logo"
             src={logo}
@@ -110,7 +134,7 @@ function Header() {
         <nav className="header__nav" aria-label="Main navigation">
           <ul className="header__nav-list">
             {NAV_LINKS.map(({ label, to }) => {
-              const isActive = to === `#${activeSection}`;
+              const isActive = location.pathname === '/' && to.endsWith(`#${activeSection}`);
               return (
                 <li key={to} className="header__nav-item">
                   <Link
@@ -156,7 +180,7 @@ function Header() {
       >
         <ul className="header__mobile-list">
           {NAV_LINKS.map(({ label, to }) => {
-            const isActive = to === `#${activeSection}`;
+            const isActive = location.pathname === '/' && to.endsWith(`#${activeSection}`);
             return (
               <li key={to} className="header__mobile-item">
                 <Link

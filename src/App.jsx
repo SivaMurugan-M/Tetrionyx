@@ -1,10 +1,27 @@
 import { useCallback, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import AboutSection from './components/AboutSection/AboutSection';
 import BrandIntro from './components/BrandIntro';
 import Header from './components/Header';
 import HeroBanner from './components/HeroBanner/HeroBanner';
+import ServicesSection from './components/ServicesSection/ServicesSection';
+import UiUxDesignPage from './pages/UiUxDesignPage';
+import WebDevelopmentPage from './pages/WebDevelopmentPage';
+import MobileAppDesignPage from './pages/MobileAppDesignPage';
+import VideoEditingPage from './pages/VideoEditingPage';
+import BrandingMarketingPage from './pages/BrandingMarketingPage';
 import { prefersReducedMotion } from './utils/motionPreference';
 import './App.css';
+
+function HomeSections() {
+  return (
+    <>
+      <HeroBanner />
+      <AboutSection />
+      <ServicesSection />
+    </>
+  );
+}
 
 function App() {
   const [introActive, setIntroActive] = useState(() => !prefersReducedMotion());
@@ -22,8 +39,15 @@ function App() {
       >
         <Header />
         <main>
-          <HeroBanner />
-          <AboutSection />
+          <Routes>
+            <Route path="/" element={<HomeSections />} />
+            <Route path="/services/ui-ux-design" element={<UiUxDesignPage />} />
+            <Route path="/services/web-development" element={<WebDevelopmentPage />} />
+            <Route path="/services/mobile-app-design" element={<MobileAppDesignPage />} />
+            <Route path="/services/video-editing" element={<VideoEditingPage />} />
+            <Route path="/services/branding-marketing" element={<BrandingMarketingPage />} />
+            <Route path="*" element={<HomeSections />} />
+          </Routes>
         </main>
       </div>
 
