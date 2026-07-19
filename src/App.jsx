@@ -48,8 +48,6 @@ function App() {
             <Route path="/services/branding-marketing" element={<BrandingMarketingPage />} />
             <Route path="*" element={<HomeSections />} />
           </Routes>
-          <HeroBanner />
-          <AboutSection />
         </main>
       </div>
 

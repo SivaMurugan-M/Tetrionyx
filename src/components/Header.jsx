@@ -3,10 +3,9 @@
    ================================================================ */
 
 import { useState, useEffect, useCallback } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
 import logo from '../assets/logos/tetrionyx.svg';
-import { scrollToSection } from '../utils/scrollToSection';
 import './Header.css';
 
 /* Navigation link data — single source of truth */
@@ -26,7 +25,6 @@ function Header() {
   const [activeSection, setActiveSection] = useState('home');
 
   const location = useLocation();
-  const navigate = useNavigate();
 
   /* ---------- scroll spy for active section highlight ---------- */
   useEffect(() => {
