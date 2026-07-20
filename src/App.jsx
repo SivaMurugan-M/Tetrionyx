@@ -11,6 +11,7 @@ import ServicesSection from './components/ServicesSection/ServicesSection';
 =======
 import ContactSection from './components/ContactSection/ContactSection';
 import Footer from './components/Footer';
+<<<<<<< HEAD
 >>>>>>> f308b7f20d2704998f27c4eea2ae84e391b37b0f
 import ProductsSection from './components/ProductsSection/ProductsSection';
 import ServicesSection from './components/ServicesSection/ServicesSection';
@@ -22,11 +23,19 @@ import Footer from './components/Footer';
 >>>>>>> main
 =======
 import CareersApplyPage from './pages/CareersApplyPage';
+=======
+import ProductsSection from './components/ProductsSection/ProductsSection';
+import ServicesSection from './components/ServicesSection/ServicesSection';
+import BrandingMarketingPage from './pages/BrandingMarketingPage';
+>>>>>>> main
 import MobileAppDesignPage from './pages/MobileAppDesignPage';
 import UiUxDesignPage from './pages/UiUxDesignPage';
 import VideoEditingPage from './pages/VideoEditingPage';
 import WebDevelopmentPage from './pages/WebDevelopmentPage';
+<<<<<<< HEAD
 >>>>>>> f308b7f20d2704998f27c4eea2ae84e391b37b0f
+=======
+>>>>>>> main
 import { prefersReducedMotion } from './utils/motionPreference';
 import './App.css';
 
@@ -37,6 +46,7 @@ function HomeSections() {
       <AboutSection />
       <ServicesSection />
 <<<<<<< HEAD
+<<<<<<< HEAD
       <ProductsSection />
       <CareersSection />
 <<<<<<< HEAD
@@ -45,6 +55,11 @@ function HomeSections() {
 =======
       <ContactSection />
 >>>>>>> f308b7f20d2704998f27c4eea2ae84e391b37b0f
+=======
+      <ProductsSection />
+      <CareersSection />
+      <ContactSection />
+>>>>>>> main
     </>
   );
 }
@@ -72,6 +87,7 @@ function App() {
             <Route path="/services/mobile-app-design" element={<MobileAppDesignPage />} />
             <Route path="/services/video-editing" element={<VideoEditingPage />} />
             <Route path="/services/branding-marketing" element={<BrandingMarketingPage />} />
+<<<<<<< HEAD
             <Route path="/careers/apply" element={<CareersApplyPage />} />
             <Route path="*" element={<HomeSections />} />
           </Routes>
@@ -81,6 +97,10 @@ function App() {
           <ContactSection />
 =======
 >>>>>>> f308b7f20d2704998f27c4eea2ae84e391b37b0f
+=======
+            <Route path="*" element={<HomeSections />} />
+          </Routes>
+>>>>>>> main
         </main>
         <Footer />
       </div>
