@@ -15,7 +15,6 @@ const NAV_LINKS = [
   { label: 'Services', to: '/#services' },
   { label: 'Product', to: '/#products' },
   { label: 'Careers', to: '/#careers' },
-  { label: 'Contact', to: '/#contact' },
 ];
 
 function Header() {
@@ -152,10 +151,10 @@ function Header() {
         {/* ---- Desktop CTA Button ---- */}
         <Link 
           className="header__cta" 
-          to="#contact"
-          onClick={() => scrollToSection('#contact')}
+          to="/#contact"
+          onClick={() => scrollToSection('/#contact')}
         >
-          Get Started
+          Contact Us
         </Link>
 
         {/* ---- Mobile Menu Toggle ---- */}
@@ -201,10 +200,10 @@ function Header() {
         {/* Mobile CTA */}
         <Link 
           className="header__mobile-cta" 
-          to="#contact" 
-          onClick={() => scrollToSection('#contact')}
+          to="/#contact"
+          onClick={() => scrollToSection('/#contact')}
         >
-          Get Started
+          Contact Us
         </Link>
       </nav>
     </header>
