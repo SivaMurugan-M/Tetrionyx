@@ -11,6 +11,7 @@ import ProductsSection from './components/ProductsSection/ProductsSection';
 import ServicesSection from './components/ServicesSection/ServicesSection';
 import BrandingMarketingPage from './pages/BrandingMarketingPage';
 import CareersApplyPage from './pages/CareersApplyPage';
+import GetStartedPage from './pages/GetStartedPage';
 import MobileAppDesignPage from './pages/MobileAppDesignPage';
 import UiUxDesignPage from './pages/UiUxDesignPage';
 import VideoEditingPage from './pages/VideoEditingPage';
@@ -55,6 +56,7 @@ function App() {
             <Route path="/services/video-editing" element={<VideoEditingPage />} />
             <Route path="/services/branding-marketing" element={<BrandingMarketingPage />} />
             <Route path="/careers/apply" element={<CareersApplyPage />} />
+            <Route path="/get-started" element={<GetStartedPage />} />
             <Route path="*" element={<HomeSections />} />
           </Routes>
         </main>
