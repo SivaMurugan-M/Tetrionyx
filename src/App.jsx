@@ -11,10 +11,7 @@ import ProductsSection from './components/ProductsSection/ProductsSection';
 import ServicesSection from './components/ServicesSection/ServicesSection';
 import BrandingMarketingPage from './pages/BrandingMarketingPage';
 import CareersApplyPage from './pages/CareersApplyPage';
-<<<<<<< HEAD
-=======
 import GetStartedPage from './pages/GetStartedPage';
->>>>>>> a5db72a8a2c4345f017d9c15525972e982d216e8
 import MobileAppDesignPage from './pages/MobileAppDesignPage';
 import UiUxDesignPage from './pages/UiUxDesignPage';
 import VideoEditingPage from './pages/VideoEditingPage';
@@ -59,10 +56,7 @@ function App() {
             <Route path="/services/video-editing" element={<VideoEditingPage />} />
             <Route path="/services/branding-marketing" element={<BrandingMarketingPage />} />
             <Route path="/careers/apply" element={<CareersApplyPage />} />
-<<<<<<< HEAD
-=======
             <Route path="/get-started" element={<GetStartedPage />} />
->>>>>>> a5db72a8a2c4345f017d9c15525972e982d216e8
             <Route path="*" element={<HomeSections />} />
           </Routes>
         </main>
