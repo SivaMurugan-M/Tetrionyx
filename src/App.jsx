@@ -6,17 +6,27 @@ import CareersSection from './components/CareersSection/CareersSection';
 import Header from './components/Header';
 import HeroBanner from './components/HeroBanner/HeroBanner';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import ServicesSection from './components/ServicesSection/ServicesSection';
+=======
+import ContactSection from './components/ContactSection/ContactSection';
+import Footer from './components/Footer';
+>>>>>>> f308b7f20d2704998f27c4eea2ae84e391b37b0f
 import ProductsSection from './components/ProductsSection/ProductsSection';
-import UiUxDesignPage from './pages/UiUxDesignPage';
-import WebDevelopmentPage from './pages/WebDevelopmentPage';
-import MobileAppDesignPage from './pages/MobileAppDesignPage';
-import VideoEditingPage from './pages/VideoEditingPage';
+import ServicesSection from './components/ServicesSection/ServicesSection';
 import BrandingMarketingPage from './pages/BrandingMarketingPage';
+<<<<<<< HEAD
 =======
 import ContactSection from './components/ContactSection/ContactSection';
 import Footer from './components/Footer';
 >>>>>>> main
+=======
+import CareersApplyPage from './pages/CareersApplyPage';
+import MobileAppDesignPage from './pages/MobileAppDesignPage';
+import UiUxDesignPage from './pages/UiUxDesignPage';
+import VideoEditingPage from './pages/VideoEditingPage';
+import WebDevelopmentPage from './pages/WebDevelopmentPage';
+>>>>>>> f308b7f20d2704998f27c4eea2ae84e391b37b0f
 import { prefersReducedMotion } from './utils/motionPreference';
 import './App.css';
 
@@ -29,8 +39,12 @@ function HomeSections() {
 <<<<<<< HEAD
       <ProductsSection />
       <CareersSection />
+<<<<<<< HEAD
 =======
 >>>>>>> main
+=======
+      <ContactSection />
+>>>>>>> f308b7f20d2704998f27c4eea2ae84e391b37b0f
     </>
   );
 }
@@ -58,11 +72,15 @@ function App() {
             <Route path="/services/mobile-app-design" element={<MobileAppDesignPage />} />
             <Route path="/services/video-editing" element={<VideoEditingPage />} />
             <Route path="/services/branding-marketing" element={<BrandingMarketingPage />} />
+            <Route path="/careers/apply" element={<CareersApplyPage />} />
             <Route path="*" element={<HomeSections />} />
           </Routes>
+<<<<<<< HEAD
           <HeroBanner />
           <AboutSection />
           <ContactSection />
+=======
+>>>>>>> f308b7f20d2704998f27c4eea2ae84e391b37b0f
         </main>
         <Footer />
       </div>
