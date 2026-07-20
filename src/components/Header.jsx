@@ -95,7 +95,6 @@ function Header() {
     window.requestAnimationFrame(() => {
       const sectionId = target.split('#')[1];
       const section = document.getElementById(sectionId);
-      const section = document.getElementById(target.slice(1));
       const reducedMotion = window.matchMedia(
         '(prefers-reduced-motion: reduce)'
       ).matches;
