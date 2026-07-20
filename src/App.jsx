@@ -10,6 +10,8 @@ import HeroBanner from './components/HeroBanner/HeroBanner';
 import ProductsSection from './components/ProductsSection/ProductsSection';
 import ServicesSection from './components/ServicesSection/ServicesSection';
 import BrandingMarketingPage from './pages/BrandingMarketingPage';
+import Header from './components/Header';
+import HeroBanner from './components/HeroBanner/HeroBanner';
 import CareersApplyPage from './pages/CareersApplyPage';
 import GetStartedPage from './pages/GetStartedPage';
 import MobileAppDesignPage from './pages/MobileAppDesignPage';

@@ -40,7 +40,7 @@ function Footer() {
 
       <div className="footer__container">
         <div className="footer__cta">
-          <div className="footer__cta-content">
+          <div>
             <p className="footer__eyebrow">Have a project in mind?</p>
             <h2 className="footer__cta-title">Let&apos;s create something remarkable.</h2>
           </div>
@@ -69,10 +69,8 @@ function Footer() {
                   height="96"
                 />
               </span>
-              <div className="footer__brand-text">
-                <span className="footer__brand-name">Tetrionyx</span>
-                <span className="footer__brand-suffix">Technologies</span>
-              </div>
+              <span className="footer__brand-name">Tetrionyx</span>
+              <span className="footer__brand-suffix">Technologies</span>
             </Link>
             <p className="footer__summary">
               We turn ambitious ideas into thoughtful digital products that help
@@ -139,6 +137,7 @@ function Footer() {
           <p>&copy; {new Date().getFullYear()} Tetrionyx Technologies. All rights reserved.</p>
           <p className="footer__signature">
             Building the future, one idea at a time.
+            <span aria-hidden="true" />
           </p>
         </div>
       </div>
