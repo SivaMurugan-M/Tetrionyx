@@ -65,7 +65,7 @@ function CareersSection() {
             Discover exciting career opportunities and make a meaningful impact with us.
           </p>
 
-          <Link className="careers-section__cta" to="/#contact">
+          <Link className="careers-section__cta" to="/careers/apply">
             Apply Now
             <HiArrowRight aria-hidden="true" />
           </Link>
