@@ -11,6 +11,7 @@ import {
   FaSpinner,
   FaCheckCircle
 } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
 import './ContactSection.css';
 
 function ContactSection() {
@@ -25,6 +26,7 @@ function ContactSection() {
   const [touched, setTouched] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
 
   // Animation intersection observer
   const sectionRef = useRef(null);
@@ -104,12 +106,13 @@ function ContactSection() {
     setErrors((prev) => ({ ...prev, [name]: error }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Mark fields as touched
     const allTouched = { name: true, email: true, message: true };
     setTouched(allTouched);
+    setSubmitError('');
 
     // Validate fields
     const formErrors = {};
@@ -125,12 +128,65 @@ function ContactSection() {
     if (Object.keys(formErrors).length === 0) {
       setIsSubmitting(true);
 
-      setTimeout(() => {
+      try {
+        const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
+        const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
+        const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
+
+        if (serviceId && templateId && publicKey) {
+          // Send via EmailJS API if configured
+          await emailjs.send(
+            serviceId,
+            templateId,
+            {
+              from_name: formData.name,
+              from_email: formData.email,
+              message: formData.message,
+              reply_to: formData.email,
+              to_email: 'Test@Tetrionyx.com',
+            },
+            publicKey
+          );
+        } else {
+          // Send directly via FormSubmit zero-config endpoint to Test@Tetrionyx.com
+          const response = await fetch('https://formsubmit.co/ajax/Test@Tetrionyx.com', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+              name: formData.name,
+              email: formData.email,
+              message: formData.message,
+              _subject: `Tetrionyx Contact Form Inquiry from ${formData.name}`,
+              _captcha: 'false',
+              _template: 'table'
+            }),
+          });
+
+          const resData = await response.json();
+          if (!response.ok || (resData.success !== 'true' && resData.success !== true)) {
+            // Fallback: trigger mailto client if network fails
+            window.location.href = `mailto:Test@Tetrionyx.com?subject=${encodeURIComponent(
+              `Tetrionyx Contact Form Inquiry from ${formData.name}`
+            )}&body=${encodeURIComponent(
+              `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+            )}`;
+          }
+        }
+
         setIsSubmitting(false);
         setIsSuccess(true);
         setFormData({ name: '', email: '', message: '' });
         setTouched({});
-      }, 1500);
+      } catch (err) {
+        console.error('Email submission error:', err);
+        setIsSubmitting(false);
+        setSubmitError(
+          err.message || 'Failed to send message. Please try again or email us directly at Test@Tetrionyx.com.'
+        );
+      }
     } else {
       // Focus on the first invalid field
       const firstInvalidField = Object.keys(formErrors)[0];
@@ -173,16 +229,8 @@ function ContactSection() {
               <div className="contact-detail-row">
                 <span className="contact-detail-row__icon" role="img" aria-label="Email">✉️</span>
                 <span className="contact-detail-row__text">
-                  <a href="mailto:hello@tetrionyx.com" className="contact-detail-row__link">
-                    hello@tetrionyx.com
-                  </a>
-                </span>
-              </div>
-              <div className="contact-detail-row">
-                <span className="contact-detail-row__icon" role="img" aria-label="Phone">📞</span>
-                <span className="contact-detail-row__text">
-                  <a href="tel:+916374199394" className="contact-detail-row__link">
-                    +91 63741 99394
+                  <a href="mailto:Test@Tetrionyx.com" className="contact-detail-row__link">
+                    Test@Tetrionyx.com
                   </a>
                 </span>
               </div>
@@ -331,6 +379,12 @@ function ContactSection() {
                     )}
                   </div>
 
+                  {submitError && (
+                    <div className="contact-form__submit-err" role="alert">
+                      {submitError}
+                    </div>
+                  )}
+
                   {/* Gradient Submit Button */}
                   <button
                     type="submit"
@@ -342,7 +396,7 @@ function ContactSection() {
                         <FaSpinner className="contact-form__spinner" /> Sending...
                       </>
                     ) : (
-                      'Send Message ✈️'
+                      'Send Message'
                     )}
                   </button>
                 </form>

@@ -5,7 +5,7 @@ import {
   FaLinkedinIn,
   FaXTwitter,
 } from 'react-icons/fa6';
-import { HiArrowUpRight, HiEnvelope, HiMapPin, HiPhone } from 'react-icons/hi2';
+import { HiArrowUpRight, HiEnvelope, HiMapPin } from 'react-icons/hi2';
 import logoT from '../assets/logos/tetrionyx-t.png';
 import logoWings from '../assets/logos/tetrionyx-wings.png';
 import './Footer.css';
@@ -51,7 +51,7 @@ function Footer() {
         </div>
 
         <div className="footer__main">
-          <div className="footer__brand-column">
+          <div className="footer__column footer__brand-column">
             <Link className="footer__brand" to="/#home" aria-label="Tetrionyx Technologies home">
               <span className="footer__logo" aria-hidden="true">
                 <img
@@ -117,13 +117,9 @@ function Footer() {
           <div className="footer__column footer__contact">
             <h3 className="footer__heading">Get in touch</h3>
             <address className="footer__contact-list">
-              <a href="mailto:hello@tetrionyx.com">
+              <a href="mailto:Test@Tetrionyx.com">
                 <span className="footer__contact-icon"><HiEnvelope aria-hidden="true" /></span>
-                <span>hello@tetrionyx.com</span>
-              </a>
-              <a href="tel:+916374199394">
-                <span className="footer__contact-icon"><HiPhone aria-hidden="true" /></span>
-                <span>+91 63741 99394</span>
+                <span>Test@Tetrionyx.com</span>
               </a>
               <p>
                 <span className="footer__contact-icon"><HiMapPin aria-hidden="true" /></span>
@@ -135,10 +131,6 @@ function Footer() {
 
         <div className="footer__bottom">
           <p>&copy; {new Date().getFullYear()} Tetrionyx Technologies. All rights reserved.</p>
-          <p className="footer__signature">
-            Building the future, one idea at a time.
-            <span aria-hidden="true" />
-          </p>
         </div>
       </div>
     </footer>
