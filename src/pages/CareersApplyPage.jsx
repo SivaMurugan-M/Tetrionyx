@@ -34,7 +34,7 @@ function CareersApplyPage() {
   return (
     <section className="careers-apply" aria-labelledby="careers-apply-title">
       <div className="careers-apply__inner">
-        <Link className="careers-apply__back" to="/#careers">
+        <Link className="careers-apply__back" to="/careers">
           <HiArrowLeft aria-hidden="true" /> Back to careers
         </Link>
 

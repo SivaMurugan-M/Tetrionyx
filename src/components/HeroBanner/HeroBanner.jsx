@@ -1,21 +1,28 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import bannerArtwork from '../../assets/images/tetrionyx-banner.png';
 import './HeroBanner.css';
 
 function HeroBanner() {
-  const handleGetStartedClick = (e) => {
-    e.preventDefault();
-    const section = document.getElementById('contact');
-    if (section) {
-      const headerHeight = document.querySelector('.header')?.offsetHeight || 85;
-      const sectionPosition = section.getBoundingClientRect().top + window.pageYOffset;
-      const offsetPosition = sectionPosition - headerHeight;
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const navigate = useNavigate();
+
+  const handleActionClick = (e, targetId, to) => {
+    const element = document.getElementById(targetId);
+    if (element) {
+      e.preventDefault();
+      const headerHeight = document.querySelector('.header')?.offsetHeight || 84;
+      const sectionTop = element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = Math.max(0, sectionTop - headerHeight);
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: reducedMotion ? 'auto' : 'smooth'
+        behavior: 'smooth',
       });
+
+      if (window.location.pathname !== to) {
+        window.history.pushState(null, '', to);
+      }
+    } else {
+      navigate(to);
     }
   };
 
@@ -75,14 +82,15 @@ function HeroBanner() {
           <div className="hero-banner__actions" aria-label="Hero actions">
             <Link
               className="hero-banner__button hero-banner__button--primary"
-              to="#contact"
-              onClick={handleGetStartedClick}
+              to="/contact"
+              onClick={(e) => handleActionClick(e, 'contact', '/contact')}
             >
               Get Started
             </Link>
             <Link
               className="hero-banner__button hero-banner__button--secondary"
               to="/services"
+              onClick={(e) => handleActionClick(e, 'services', '/services')}
             >
               Explore Services
             </Link>

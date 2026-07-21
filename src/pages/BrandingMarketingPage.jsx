@@ -46,7 +46,7 @@ function BrandingMarketingPage() {
               <Link className="uiux-page__button uiux-page__button--primary" to="/contact">
                 Grow your brand <FaArrowRight aria-hidden="true" />
               </Link>
-              <Link className="uiux-page__button uiux-page__button--secondary" to="/#services">
+              <Link className="uiux-page__button uiux-page__button--secondary" to="/services">
                 View all services
               </Link>
             </div>
