@@ -197,7 +197,7 @@
   font-weight: 700;
 }
 
-.get-started__form input,
+.get-started__form input:not([type="checkbox"]),
 .get-started__form select,
 .get-started__form textarea {
   width: 100%;
@@ -211,10 +211,33 @@
   transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
 }
 
-.get-started__form input,
+.get-started__form input:not([type="checkbox"]),
 .get-started__form select {
+  box-sizing: border-box;
+  height: 50px;
   min-height: 50px;
   padding: 0 0.85rem;
+}
+
+.get-started__form select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 2.6rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke-width='2.2' stroke='%23162640'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5' /%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.85rem center;
+  background-size: 1.1rem;
+  cursor: pointer;
+}
+
+.get-started__form select:invalid {
+  color: #9ba7b7;
+}
+
+.get-started__form select option {
+  color: #162640;
+  background: #ffffff;
 }
 
 .get-started__form textarea {
@@ -229,7 +252,7 @@
   color: #9ba7b7;
 }
 
-.get-started__form input:focus,
+.get-started__form input:not([type="checkbox"]):focus,
 .get-started__form select:focus,
 .get-started__form textarea:focus {
   border-color: #1677ef;
@@ -239,19 +262,24 @@
 
 .get-started__consent {
   display: flex;
-  align-items: flex-start;
-  gap: 0.7rem;
+  align-items: center;
+  gap: 0.75rem;
   color: #66748a;
-  font-size: 0.78rem;
-  line-height: 1.5;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  cursor: pointer;
 }
 
-.get-started__consent input {
+.get-started__consent input[type="checkbox"] {
   flex: 0 0 auto;
   width: 18px;
   height: 18px;
-  margin-top: 0.05rem;
+  min-height: 18px;
+  max-height: 18px;
+  margin: 0;
+  padding: 0;
   accent-color: #1677ef;
+  cursor: pointer;
 }
 
 .get-started__form button {
