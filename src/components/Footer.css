@@ -344,6 +344,8 @@
 
 .footer__bottom p {
   margin: 0;
+  text-align: center;
+  width: 100%;
 }
 
 .footer__signature {

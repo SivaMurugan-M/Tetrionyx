@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import BrandIntro from './components/BrandIntro';
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -21,36 +21,17 @@ import WebDevelopmentPage from './pages/WebDevelopmentPage';
 import { prefersReducedMotion } from './utils/motionPreference';
 import './App.css';
 
-function GlobalRefreshRedirect() {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  useEffect(() => {
-    // Check performance navigation entries or legacy type for reload
-    const navEntries = performance.getEntriesByType('navigation');
-    const isReload =
-      (navEntries.length > 0 && navEntries[0].type === 'reload') ||
-      (window.performance && window.performance.navigation && window.performance.navigation.type === 1);
-
-    // Forces redirect to root (/) immediately on initial mount / reload when not on root
-    if ((isReload || true) && location.pathname !== '/') {
-      navigate('/', { replace: true });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return null;
-}
-
 function ScrollToTop() {
   const { pathname } = useLocation();
   const isFirstRender = useRef(true);
 
   useEffect(() => {
+    // Preserve browser scroll restoration on refresh/initial mount
     if (isFirstRender.current) {
       isFirstRender.current = false;
       return;
     }
+    // Only scroll to top when actively navigating to a NEW route
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
   }, [pathname]);
 
@@ -77,7 +58,6 @@ function App() {
 
   return (
     <>
-      <GlobalRefreshRedirect />
       <ScrollToTop />
       <div
         className={`app app-view${homepageVisible ? ' app-view--visible' : ''}`}
