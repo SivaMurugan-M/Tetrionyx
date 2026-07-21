@@ -1,31 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import bannerArtwork from '../../assets/images/tetrionyx-banner.png';
 import './HeroBanner.css';
 
 function HeroBanner() {
-  const navigate = useNavigate();
-
-  const handleActionClick = (e, targetId, to) => {
-    const element = document.getElementById(targetId);
-    if (element) {
-      e.preventDefault();
-      const headerHeight = document.querySelector('.header')?.offsetHeight || 84;
-      const sectionTop = element.getBoundingClientRect().top + window.scrollY;
-      const offsetPosition = Math.max(0, sectionTop - headerHeight);
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
-
-      if (window.location.pathname !== to) {
-        window.history.pushState(null, '', to);
-      }
-    } else {
-      navigate(to);
-    }
-  };
-
   return (
     <section className="hero-banner" id="home" aria-labelledby="hero-banner-title">
       <div className="hero-banner__tech-backdrop" aria-hidden="true">
@@ -83,14 +60,12 @@ function HeroBanner() {
             <Link
               className="hero-banner__button hero-banner__button--primary"
               to="/contact"
-              onClick={(e) => handleActionClick(e, 'contact', '/contact')}
             >
               Get Started
             </Link>
             <Link
               className="hero-banner__button hero-banner__button--secondary"
               to="/services"
-              onClick={(e) => handleActionClick(e, 'services', '/services')}
             >
               Explore Services
             </Link>
