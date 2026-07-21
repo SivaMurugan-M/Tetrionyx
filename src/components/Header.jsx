@@ -3,18 +3,18 @@
    ================================================================ */
 
 import { useState, useEffect, useCallback } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
 import logo from '../assets/logos/tetrionyx.svg';
 import './Header.css';
 
-/* Navigation link data — single source of truth */
+/* Navigation link data — single source of truth (Contact represented via right CTA button) */
 const NAV_LINKS = [
-  { label: 'Home', to: '/#home' },
-  { label: 'About', to: '/#about' },
-  { label: 'Services', to: '/#services' },
-  { label: 'Product', to: '/#products' },
-  { label: 'Careers', to: '/#careers' },
+  { id: 'home', label: 'Home', to: '/' },
+  { id: 'about', label: 'About', to: '/about' },
+  { id: 'services', label: 'Services', to: '/services' },
+  { id: 'products', label: 'Products', to: '/products' },
+  { id: 'careers', label: 'Careers', to: '/careers' },
 ];
 
 function Header() {
@@ -24,30 +24,96 @@ function Header() {
   const [activeSection, setActiveSection] = useState('home');
 
   const location = useLocation();
+  const navigate = useNavigate();
 
-  /* ---------- scroll spy for active section highlight ---------- */
+  /* ---------- restore last active section instantly on page refresh / load ---------- */
   useEffect(() => {
-    const handleScrollActive = () => {
-      const sections = ['home', 'about', 'services', 'products', 'careers', 'contact'];
-      const scrollPosition = window.scrollY + 180; // detection offset
+    const path = window.location.pathname;
+    const storedSection = sessionStorage.getItem('last_active_section');
+    const pathSection = path === '/' ? '' : path.replace('/', '');
+    const targetSection = pathSection || (storedSection && storedSection !== 'home' ? storedSection : '');
 
-      for (const section of sections) {
-        const element = document.getElementById(section);
+    const validSections = ['about', 'services', 'products', 'careers', 'contact'];
+
+    if (validSections.includes(targetSection)) {
+      const timer = setTimeout(() => {
+        const element = document.getElementById(targetSection);
         if (element) {
-          const top = element.offsetTop;
-          const height = element.offsetHeight;
-          if (scrollPosition >= top && scrollPosition < top + height) {
-            setActiveSection(section);
-            break;
-          }
-        }
-      }
-    };
+          const headerHeight = document.querySelector('.header')?.offsetHeight || 84;
+          const sectionTop = element.getBoundingClientRect().top + window.scrollY;
+          const offsetPosition = Math.max(0, sectionTop - headerHeight);
 
-    window.addEventListener('scroll', handleScrollActive);
-    handleScrollActive(); // initial check
-    return () => window.removeEventListener('scroll', handleScrollActive);
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'instant',
+          });
+
+          setActiveSection(targetSection);
+        }
+      }, 50);
+
+      return () => clearTimeout(timer);
+    }
   }, []);
+
+  /* ---------- IntersectionObserver scroll spy for section highlight & URL sync ---------- */
+  useEffect(() => {
+    const sectionIds = ['home', 'about', 'services', 'products', 'careers', 'contact'];
+    const elements = sectionIds.map((id) => document.getElementById(id)).filter(Boolean);
+
+    // Observe multi-section elements in DOM continuously
+    if (elements.length < 3) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const sectionId = entry.target.id;
+            setActiveSection(sectionId);
+            sessionStorage.setItem('last_active_section', sectionId);
+
+            // Update URL bar seamlessly when user is actively scrolling (scrollY > 50)
+            if (window.scrollY > 50) {
+              const targetPath = sectionId === 'home' ? '/' : `/${sectionId}`;
+              if (window.location.pathname !== targetPath) {
+                window.history.replaceState(null, '', targetPath);
+              }
+            }
+          }
+        });
+      },
+      {
+        rootMargin: '-20% 0px -50% 0px',
+        threshold: 0.15,
+      }
+    );
+
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, [location.pathname]);
+
+  /* ---------- active link determination (strictly single active item) ---------- */
+  const isLinkActive = useCallback(
+    (item) => {
+      const path = location.pathname;
+      const sectionIds = ['home', 'about', 'services', 'products', 'careers', 'contact'];
+      const hasMultiSections = sectionIds.filter((id) => document.getElementById(id)).length >= 3;
+
+      // On multi-section page views, rely on scroll-spy activeSection
+      if (hasMultiSections || path === '/') {
+        return item.id === activeSection;
+      }
+
+      // On standalone sub-routes (/careers/apply, /services/ui-ux-design, etc.)
+      if (item.to === '/') {
+        return false;
+      }
+
+      return path.startsWith(item.to);
+    },
+    [location.pathname, activeSection]
+  );
 
   /* ---------- scroll shadow ---------- */
   useEffect(() => {
@@ -56,28 +122,11 @@ function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  /* ---------- close menu on route change ---------- */
+  /* ---------- close menu & unlock body scroll on route change ---------- */
   useEffect(() => {
     setMenuOpen(false);
-  }, [location.hash, location.pathname]);
-
-  useEffect(() => {
-    if (location.pathname !== '/' || !location.hash) return undefined;
-
-    const frame = window.requestAnimationFrame(() => {
-      const section = document.getElementById(location.hash.slice(1));
-      const reducedMotion = window.matchMedia(
-        '(prefers-reduced-motion: reduce)'
-      ).matches;
-
-      section?.scrollIntoView({
-        behavior: reducedMotion ? 'auto' : 'smooth',
-        block: 'start',
-      });
-    });
-
-    return () => window.cancelAnimationFrame(frame);
-  }, [location.hash, location.pathname]);
+    document.body.style.overflow = '';
+  }, [location.pathname]);
 
   /* ---------- lock body scroll when mobile menu is open ---------- */
   useEffect(() => {
@@ -85,25 +134,46 @@ function Header() {
     return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
 
-  /* ---------- toggle handler ---------- */
+  /* ---------- toggle & navigation handlers ---------- */
   const toggleMenu = useCallback(() => setMenuOpen((prev) => !prev), []);
   const closeMenu = useCallback(() => setMenuOpen(false), []);
-  const scrollToSection = useCallback((target) => {
-    closeMenu();
 
-    window.requestAnimationFrame(() => {
-      const sectionId = target.split('#')[1];
-      const section = document.getElementById(sectionId);
-      const reducedMotion = window.matchMedia(
-        '(prefers-reduced-motion: reduce)'
-      ).matches;
+  const handleNavClick = useCallback(
+    (e, item) => {
+      const section = document.getElementById(item.id);
+      const sectionIds = ['home', 'about', 'services', 'products', 'careers', 'contact'];
+      const hasMultiSections = sectionIds.filter((id) => document.getElementById(id)).length >= 3;
 
-      section?.scrollIntoView({
-        behavior: reducedMotion ? 'auto' : 'smooth',
-        block: 'start',
-      });
-    });
-  }, [closeMenu]);
+      if (section && hasMultiSections) {
+        e.preventDefault();
+        closeMenu();
+
+        const headerHeight = document.querySelector('.header')?.offsetHeight || 84;
+        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+        const offsetPosition = Math.max(0, sectionTop - headerHeight);
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: reducedMotion ? 'auto' : 'smooth',
+        });
+
+        const targetPath = item.to;
+        if (window.location.pathname !== targetPath) {
+          window.history.pushState(null, '', targetPath);
+          setActiveSection(item.id);
+          sessionStorage.setItem('last_active_section', item.id);
+        }
+      } else {
+        closeMenu();
+        navigate(item.to);
+      }
+    },
+    [closeMenu, navigate]
+  );
+
+  const contactItem = { id: 'contact', label: 'Contact Us', to: '/contact' };
+  const isContactActive = isLinkActive(contactItem);
 
   /* ---------- render ---------- */
   return (
@@ -115,9 +185,9 @@ function Header() {
         {/* ---- Brand / Logo ---- */}
         <Link
           className="header__brand"
-          to="/#home"
+          to="/"
           aria-label="Tetrionyx home"
-          onClick={() => scrollToSection('/#home')}
+          onClick={(e) => handleNavClick(e, { id: 'home', to: '/' })}
         >
           <img
             className="header__logo"
@@ -132,16 +202,17 @@ function Header() {
         {/* ---- Desktop Navigation ---- */}
         <nav className="header__nav" aria-label="Main navigation">
           <ul className="header__nav-list">
-            {NAV_LINKS.map(({ label, to }) => {
-              const isActive = location.pathname === '/' && to.endsWith(`#${activeSection}`);
+            {NAV_LINKS.map((item) => {
+              const active = isLinkActive(item);
               return (
-                <li key={to} className="header__nav-item">
-                  <Link
-                    className={`header__nav-link${isActive ? ' header__nav-link--active' : ''}`}
-                    to={to}
+                <li key={item.to} className="header__nav-item">
+                  <a
+                    className={`header__nav-link${active ? ' header__nav-link--active' : ''}`}
+                    href={item.to}
+                    onClick={(e) => handleNavClick(e, item)}
                   >
-                    {label}
-                  </Link>
+                    {item.label}
+                  </a>
                 </li>
               );
             })}
@@ -149,13 +220,13 @@ function Header() {
         </nav>
 
         {/* ---- Desktop CTA Button ---- */}
-        <Link 
-          className="header__cta" 
-          to="/#contact"
-          onClick={() => scrollToSection('/#contact')}
+        <a 
+          className={`header__cta${isContactActive ? ' header__cta--active' : ''}`} 
+          href="/contact"
+          onClick={(e) => handleNavClick(e, contactItem)}
         >
           Contact Us
-        </Link>
+        </a>
 
         {/* ---- Mobile Menu Toggle ---- */}
         <button
@@ -181,30 +252,30 @@ function Header() {
         aria-label="Mobile navigation"
       >
         <ul className="header__mobile-list">
-          {NAV_LINKS.map(({ label, to }) => {
-            const isActive = location.pathname === '/' && to.endsWith(`#${activeSection}`);
+          {NAV_LINKS.map((item) => {
+            const active = isLinkActive(item);
             return (
-              <li key={to} className="header__mobile-item">
-                <Link
-                  className={`header__mobile-link${isActive ? ' header__mobile-link--active' : ''}`}
-                  to={to}
-                  onClick={closeMenu}
+              <li key={item.to} className="header__mobile-item">
+                <a
+                  className={`header__mobile-link${active ? ' header__mobile-link--active' : ''}`}
+                  href={item.to}
+                  onClick={(e) => handleNavClick(e, item)}
                 >
-                  {label}
-                </Link>
+                  {item.label}
+                </a>
               </li>
             );
           })}
         </ul>
 
         {/* Mobile CTA */}
-        <Link 
-          className="header__mobile-cta" 
-          to="/#contact"
-          onClick={() => scrollToSection('/#contact')}
+        <a 
+          className={`header__mobile-cta${isContactActive ? ' header__mobile-cta--active' : ''}`} 
+          href="/contact"
+          onClick={(e) => handleNavClick(e, contactItem)}
         >
           Contact Us
-        </Link>
+        </a>
       </nav>
     </header>
   );

@@ -51,7 +51,7 @@ function MobileAppDesignPage() {
               <Link className="uiux-page__button uiux-page__button--primary" to="/contact">
                 Design your app <FaArrowRight aria-hidden="true" />
               </Link>
-              <Link className="uiux-page__button uiux-page__button--secondary" to="/#services">
+              <Link className="uiux-page__button uiux-page__button--secondary" to="/services">
                 View all services
               </Link>
             </div>

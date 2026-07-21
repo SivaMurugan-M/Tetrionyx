@@ -5,16 +5,16 @@ import {
   FaLinkedinIn,
   FaXTwitter,
 } from 'react-icons/fa6';
-import { HiArrowUpRight, HiEnvelope, HiMapPin, HiPhone } from 'react-icons/hi2';
+import { HiArrowUp, HiArrowUpRight, HiEnvelope, HiMapPin, HiPhone } from 'react-icons/hi2';
 import logoT from '../assets/logos/tetrionyx-t.png';
 import logoWings from '../assets/logos/tetrionyx-wings.png';
 import './Footer.css';
 
 const companyLinks = [
-  { label: 'About us', to: '/#about' },
-  { label: 'Products', to: '/#products' },
-  { label: 'Careers', to: '/#careers' },
-  { label: 'Contact', to: '/#contact' },
+  { label: 'About us', to: '/about' },
+  { label: 'Products', to: '/products' },
+  { label: 'Careers', to: '/careers' },
+  { label: 'Contact', to: '/contact' },
 ];
 
 const serviceLinks = [
@@ -33,6 +33,10 @@ const socialLinks = [
 ];
 
 function Footer() {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <footer className="footer">
       <div className="footer__glow footer__glow--left" aria-hidden="true" />
@@ -40,19 +44,19 @@ function Footer() {
 
       <div className="footer__container">
         <div className="footer__cta">
-          <div>
+          <div className="footer__cta-content">
             <p className="footer__eyebrow">Have a project in mind?</p>
             <h2 className="footer__cta-title">Let&apos;s create something remarkable.</h2>
           </div>
-          <Link className="footer__cta-link" to="/#contact">
-            Start a conversation
+          <Link className="footer__cta-link" to="/contact">
+            <span>Start a conversation</span>
             <HiArrowUpRight aria-hidden="true" />
           </Link>
         </div>
 
         <div className="footer__main">
           <div className="footer__brand-column">
-            <Link className="footer__brand" to="/#home" aria-label="Tetrionyx Technologies home">
+            <Link className="footer__brand" to="/" aria-label="Tetrionyx Technologies home">
               <span className="footer__logo" aria-hidden="true">
                 <img
                   className="footer__logo-wings"
@@ -69,8 +73,10 @@ function Footer() {
                   height="96"
                 />
               </span>
-              <span className="footer__brand-name">Tetrionyx</span>
-              <span className="footer__brand-suffix">Technologies</span>
+              <span className="footer__brand-text">
+                <span className="footer__brand-name">Tetrionyx</span>
+                <span className="footer__brand-suffix">Technologies</span>
+              </span>
             </Link>
             <p className="footer__summary">
               We turn ambitious ideas into thoughtful digital products that help
@@ -137,8 +143,16 @@ function Footer() {
           <p>&copy; {new Date().getFullYear()} Tetrionyx Technologies. All rights reserved.</p>
           <p className="footer__signature">
             Building the future, one idea at a time.
-            <span aria-hidden="true" />
           </p>
+          <button
+            type="button"
+            className="footer__back-to-top"
+            onClick={scrollToTop}
+            aria-label="Back to top"
+          >
+            <span>Back to top</span>
+            <HiArrowUp aria-hidden="true" />
+          </button>
         </div>
       </div>
     </footer>
