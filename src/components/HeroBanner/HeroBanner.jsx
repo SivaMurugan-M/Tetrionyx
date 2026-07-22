@@ -3,6 +3,27 @@ import bannerArtwork from '../../assets/images/tetrionyx-banner.png';
 import './HeroBanner.css';
 
 function HeroBanner() {
+  const handleNavClick = (e, targetId, targetPath) => {
+    const element = document.getElementById(targetId);
+    if (element) {
+      e.preventDefault();
+      const headerHeight = document.querySelector('.header')?.offsetHeight || 84;
+      const sectionTop = element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = Math.max(0, sectionTop - headerHeight);
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: reducedMotion ? 'auto' : 'smooth',
+      });
+
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState(null, '', targetPath);
+        sessionStorage.setItem('last_active_section', targetId);
+      }
+    }
+  };
+
   return (
     <section className="hero-banner" id="home" aria-labelledby="hero-banner-title">
       <div className="hero-banner__tech-backdrop" aria-hidden="true">
@@ -60,12 +81,14 @@ function HeroBanner() {
             <Link
               className="hero-banner__button hero-banner__button--primary"
               to="/contact"
+              onClick={(e) => handleNavClick(e, 'contact', '/contact')}
             >
               Get Started
             </Link>
             <Link
               className="hero-banner__button hero-banner__button--secondary"
               to="/services"
+              onClick={(e) => handleNavClick(e, 'services', '/services')}
             >
               Explore Services
             </Link>

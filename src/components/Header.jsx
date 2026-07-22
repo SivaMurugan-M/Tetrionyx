@@ -2,7 +2,7 @@
    Header.jsx — Sticky responsive navigation for Tetrionyx Technologies
    ================================================================ */
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
 import logo from '../assets/logos/tetrionyx.svg';
@@ -18,43 +18,54 @@ const NAV_LINKS = [
 ];
 
 function Header() {
-  /* ---------- state ---------- */
+  /* ---------- state & refs ---------- */
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const isFirstRender = useRef(true);
 
   const location = useLocation();
   const navigate = useNavigate();
 
-  /* ---------- restore last active section instantly on page refresh / load ---------- */
+  /* ---------- restore last active section instantly on load or smoothly on navigation ---------- */
   useEffect(() => {
-    const path = window.location.pathname;
-    const storedSection = sessionStorage.getItem('last_active_section');
-    const pathSection = path === '/' ? '' : path.replace('/', '');
-    const targetSection = pathSection || (storedSection && storedSection !== 'home' ? storedSection : '');
+    const path = location.pathname;
+    const pathSection = path === '/' ? 'home' : path.replace('/', '');
+    const validSections = ['home', 'about', 'services', 'products', 'careers', 'contact'];
 
-    const validSections = ['about', 'services', 'products', 'careers', 'contact'];
+    if (validSections.includes(pathSection)) {
+      let retries = 0;
+      let timer;
 
-    if (validSections.includes(targetSection)) {
-      const timer = setTimeout(() => {
-        const element = document.getElementById(targetSection);
+      const checkAndScroll = () => {
+        const element = document.getElementById(pathSection);
         if (element) {
           const headerHeight = document.querySelector('.header')?.offsetHeight || 84;
           const sectionTop = element.getBoundingClientRect().top + window.scrollY;
           const offsetPosition = Math.max(0, sectionTop - headerHeight);
+          const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+          const isFirst = isFirstRender.current;
+
+          if (isFirst) {
+            isFirstRender.current = false;
+          }
 
           window.scrollTo({
             top: offsetPosition,
-            behavior: 'instant',
+            behavior: isFirst ? 'instant' : (reducedMotion ? 'auto' : 'smooth'),
           });
 
-          setActiveSection(targetSection);
+          setActiveSection(pathSection);
+        } else if (retries < 10) {
+          retries++;
+          timer = setTimeout(checkAndScroll, 50);
         }
-      }, 50);
+      };
 
+      timer = setTimeout(checkAndScroll, 50);
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [location.pathname]);
 
   /* ---------- IntersectionObserver scroll spy for section highlight & URL sync ---------- */
   useEffect(() => {
