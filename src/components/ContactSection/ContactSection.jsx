@@ -272,7 +272,7 @@ function ContactSection() {
     >
       <div className="contact-section__container container">
         <div className="contact-section__layout">
-          
+
           {/* Left Column: Company Info */}
           <div className="contact-section__info-column">
             <span id="contact-section-eyebrow" className="contact-section__eyebrow">
@@ -458,7 +458,7 @@ function ContactSection() {
               </form>
             </div>
           </div>
-          
+
         </div>
       </div>
     </section>

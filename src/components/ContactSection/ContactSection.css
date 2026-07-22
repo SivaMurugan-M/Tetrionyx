@@ -304,7 +304,6 @@
   font-weight: 500;
   line-height: 1.5;
 }
-
 .contact-form__submit-success {
   margin-bottom: 1.25rem;
   padding: 0.85rem 1.15rem;
@@ -317,7 +316,6 @@
   line-height: 1.5;
   animation: contact-err-slide 200ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
-
 .contact-form__submit:active:not(:disabled) {
   transform: scale(1.01);
 }
