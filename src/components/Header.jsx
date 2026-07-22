@@ -5,7 +5,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
-import logo from '../assets/logos/tetrionyx.svg';
+import logo from '../assets/logos/tetrionyx.png';
 import './Header.css';
 
 /* Navigation link data — single source of truth (Contact represented via right CTA button) */
@@ -203,11 +203,8 @@ function Header() {
           <img
             className="header__logo"
             src={logo}
-            alt="Tetrionyx Technologies logo"
-            width="60"
-            height="60"
+            alt="Tetrionyx Technologies"
           />
-          <span className="header__company-name">Tetrionyx Technologies</span>
         </Link>
 
         {/* ---- Desktop Navigation ---- */}
