@@ -340,20 +340,10 @@
   color: #64748b;
   font-size: 0.82rem;
 }
-
 .footer__bottom p {
   margin: 0;
   text-align: center;
-<<<<<<< HEAD
-  width: 100%;
-}
-
-.footer__signature {
-  color: #94a3b8;
-  font-weight: 500;
-=======
   width: auto;
->>>>>>> 40904e1c30b816cbf7b4499b8695382a65845e66
 }
 
 .footer__back-to-top {

@@ -124,14 +124,11 @@ function ContactSection() {
     const allTouched = { name: true, email: true, message: true };
     setTouched(allTouched);
     setSubmitError('');
-<<<<<<< HEAD
-=======
     setIsSuccess(false);
 
     if (successTimeoutRef.current) {
       clearTimeout(successTimeoutRef.current);
     }
->>>>>>> 40904e1c30b816cbf7b4499b8695382a65845e66
 
     // Validate fields
     const formErrors = {};
@@ -151,11 +148,6 @@ function ContactSection() {
         const serviceId = process.env.REACT_APP_EMAILJS_SERVICE_ID;
         const templateId = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
         const publicKey = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
-<<<<<<< HEAD
-
-        if (serviceId && templateId && publicKey) {
-          // Send via EmailJS API if configured
-=======
         const web3formsKey = process.env.REACT_APP_WEB3FORMS_KEY;
         const payload = {
           name: formData.name,
@@ -173,24 +165,10 @@ function ContactSection() {
           }
 
           // 1. Send Admin Email
->>>>>>> 40904e1c30b816cbf7b4499b8695382a65845e66
           await emailjs.send(
             serviceId,
             templateId,
             {
-<<<<<<< HEAD
-              from_name: formData.name,
-              from_email: formData.email,
-              message: formData.message,
-              reply_to: formData.email,
-              to_email: 'Test@Tetrionyx.com',
-            },
-            publicKey
-          );
-        } else {
-          // Send directly via FormSubmit zero-config endpoint to Test@Tetrionyx.com
-          const response = await fetch('https://formsubmit.co/ajax/Test@Tetrionyx.com', {
-=======
               from_name: payload.name,
               from_email: payload.email,
               message: payload.message,
@@ -215,21 +193,12 @@ function ContactSection() {
         } else if (web3formsKey) {
           // Send via Web3Forms if configured
           const response = await fetch('https://api.web3forms.com/submit', {
->>>>>>> 40904e1c30b816cbf7b4499b8695382a65845e66
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
               'Accept': 'application/json'
             },
             body: JSON.stringify({
-<<<<<<< HEAD
-              name: formData.name,
-              email: formData.email,
-              message: formData.message,
-              _subject: `Tetrionyx Contact Form Inquiry from ${formData.name}`,
-              _captcha: 'false',
-              _template: 'table'
-=======
               access_key: web3formsKey,
               name: payload.name,
               email: payload.email,
@@ -260,22 +229,12 @@ function ContactSection() {
               _captcha: 'false',
               _template: 'table',
               _autoresponse: `Dear ${payload.name},\n\nThank you for contacting Tetrionyx Technology.\n\nWe have successfully received your message. Our team will review your request and contact you as soon as possible.\n\nWe appreciate your interest in Tetrionyx Technology and look forward to assisting you.\n\nBest Regards,\nTetrionyx Technology Team`
->>>>>>> 40904e1c30b816cbf7b4499b8695382a65845e66
             }),
           });
 
           const resData = await response.json();
           if (!response.ok || (resData.success !== 'true' && resData.success !== true)) {
-<<<<<<< HEAD
-            // Fallback: trigger mailto client if network fails
-            window.location.href = `mailto:Test@Tetrionyx.com?subject=${encodeURIComponent(
-              `Tetrionyx Contact Form Inquiry from ${formData.name}`
-            )}&body=${encodeURIComponent(
-              `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-            )}`;
-=======
             throw new Error('FormSubmit submission failed');
->>>>>>> 40904e1c30b816cbf7b4499b8695382a65845e66
           }
         }
 
@@ -284,14 +243,6 @@ function ContactSection() {
         // Clear all input fields so the form is reset and ready for the next submission
         setFormData({ name: '', email: '', message: '' });
         setTouched({});
-<<<<<<< HEAD
-      } catch (err) {
-        console.error('Email submission error:', err);
-        setIsSubmitting(false);
-        setSubmitError(
-          err.message || 'Failed to send message. Please try again or email us directly at Test@Tetrionyx.com.'
-        );
-=======
 
         // Keep success notification visible for exactly 2 seconds, then automatically hide it
         successTimeoutRef.current = setTimeout(() => {
@@ -301,7 +252,6 @@ function ContactSection() {
         console.error('Email submission error:', err);
         setIsSubmitting(false);
         setSubmitError(err.message || 'Failed to send your message. Please try again later.');
->>>>>>> 40904e1c30b816cbf7b4499b8695382a65845e66
       }
     } else {
       // Focus on the first invalid field
@@ -322,7 +272,7 @@ function ContactSection() {
     >
       <div className="contact-section__container container">
         <div className="contact-section__layout">
-          
+
           {/* Left Column: Company Info */}
           <div className="contact-section__info-column">
             <span id="contact-section-eyebrow" className="contact-section__eyebrow">
@@ -439,26 +389,6 @@ function ContactSection() {
                     )}
                   </div>
 
-<<<<<<< HEAD
-                  {submitError && (
-                    <div className="contact-form__submit-err" role="alert">
-                      {submitError}
-                    </div>
-                  )}
-
-                  {/* Gradient Submit Button */}
-                  <button
-                    type="submit"
-                    className="contact-form__submit"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <FaSpinner className="contact-form__spinner" /> Sending...
-                      </>
-                    ) : (
-                      'Send Message'
-=======
                   <div className="contact-form__group">
                     <label htmlFor="email" className="contact-form__label">
                       Your Email
@@ -481,7 +411,6 @@ function ContactSection() {
                       <span id="email-err" className="contact-form__err" role="alert">
                         {errors.email}
                       </span>
->>>>>>> 40904e1c30b816cbf7b4499b8695382a65845e66
                     )}
                   </div>
                 </div>
@@ -529,7 +458,7 @@ function ContactSection() {
               </form>
             </div>
           </div>
-          
+
         </div>
       </div>
     </section>
