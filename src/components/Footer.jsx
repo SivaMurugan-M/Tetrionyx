@@ -5,7 +5,7 @@ import {
   FaLinkedinIn,
   FaXTwitter,
 } from 'react-icons/fa6';
-import { HiArrowUp, HiArrowUpRight, HiEnvelope, HiMapPin, HiPhone } from 'react-icons/hi2';
+import { HiArrowUp, HiArrowUpRight, HiEnvelope, HiMapPin } from 'react-icons/hi2';
 import logoT from '../assets/logos/tetrionyx-t.png';
 import logoWings from '../assets/logos/tetrionyx-wings.png';
 import './Footer.css';
@@ -37,6 +37,27 @@ function Footer() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleNavClick = (e, targetId, targetPath) => {
+    const element = document.getElementById(targetId);
+    if (element) {
+      e.preventDefault();
+      const headerHeight = document.querySelector('.header')?.offsetHeight || 84;
+      const sectionTop = element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = Math.max(0, sectionTop - headerHeight);
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: reducedMotion ? 'auto' : 'smooth',
+      });
+
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState(null, '', targetPath);
+        sessionStorage.setItem('last_active_section', targetId);
+      }
+    }
+  };
+
   return (
     <footer className="footer">
       <div className="footer__glow footer__glow--left" aria-hidden="true" />
@@ -48,7 +69,11 @@ function Footer() {
             <p className="footer__eyebrow">Have a project in mind?</p>
             <h2 className="footer__cta-title">Let&apos;s create something remarkable.</h2>
           </div>
-          <Link className="footer__cta-link" to="/contact">
+          <Link
+            className="footer__cta-link"
+            to="/contact"
+            onClick={(e) => handleNavClick(e, 'contact', '/contact')}
+          >
             <span>Start a conversation</span>
             <HiArrowUpRight aria-hidden="true" />
           </Link>
@@ -123,13 +148,9 @@ function Footer() {
           <div className="footer__column footer__contact">
             <h3 className="footer__heading">Get in touch</h3>
             <address className="footer__contact-list">
-              <a href="mailto:hello@tetrionyx.com">
+              <a href="mailto:Test@Tetrionyx.com">
                 <span className="footer__contact-icon"><HiEnvelope aria-hidden="true" /></span>
-                <span>hello@tetrionyx.com</span>
-              </a>
-              <a href="tel:+916374199394">
-                <span className="footer__contact-icon"><HiPhone aria-hidden="true" /></span>
-                <span>+91 63741 99394</span>
+                <span>Test@Tetrionyx.com</span>
               </a>
               <p>
                 <span className="footer__contact-icon"><HiMapPin aria-hidden="true" /></span>
@@ -140,10 +161,8 @@ function Footer() {
         </div>
 
         <div className="footer__bottom">
+          <div className="footer__bottom-placeholder" aria-hidden="true" />
           <p>&copy; {new Date().getFullYear()} Tetrionyx Technologies. All rights reserved.</p>
-          <p className="footer__signature">
-            Building the future, one idea at a time.
-          </p>
           <button
             type="button"
             className="footer__back-to-top"

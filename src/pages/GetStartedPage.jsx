@@ -6,7 +6,6 @@ import {
   HiCheckCircle,
   HiClock,
   HiEnvelope,
-  HiPhone,
   HiShieldCheck,
   HiSparkles,
 } from 'react-icons/hi2';
@@ -89,11 +88,8 @@ function GetStartedPage() {
             <div className="get-started__direct-contact">
               <p>Prefer to contact us directly?</p>
               <div>
-                <a href="mailto:hello@tetrionyx.com">
-                  <HiEnvelope aria-hidden="true" /> hello@tetrionyx.com
-                </a>
-                <a href="tel:+916374199394">
-                  <HiPhone aria-hidden="true" /> +91 63741 99394
+                <a href="mailto:marivignesh242004@gmail.com">
+                  <HiEnvelope aria-hidden="true" /> marivignesh242004@gmail.com
                 </a>
               </div>
             </div>
