@@ -37,6 +37,27 @@ function Footer() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleNavClick = (e, targetId, targetPath) => {
+    const element = document.getElementById(targetId);
+    if (element) {
+      e.preventDefault();
+      const headerHeight = document.querySelector('.header')?.offsetHeight || 84;
+      const sectionTop = element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = Math.max(0, sectionTop - headerHeight);
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: reducedMotion ? 'auto' : 'smooth',
+      });
+
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState(null, '', targetPath);
+        sessionStorage.setItem('last_active_section', targetId);
+      }
+    }
+  };
+
   return (
     <footer className="footer">
       <div className="footer__glow footer__glow--left" aria-hidden="true" />
@@ -48,7 +69,11 @@ function Footer() {
             <p className="footer__eyebrow">Have a project in mind?</p>
             <h2 className="footer__cta-title">Let&apos;s create something remarkable.</h2>
           </div>
-          <Link className="footer__cta-link" to="/contact">
+          <Link
+            className="footer__cta-link"
+            to="/contact"
+            onClick={(e) => handleNavClick(e, 'contact', '/contact')}
+          >
             <span>Start a conversation</span>
             <HiArrowUpRight aria-hidden="true" />
           </Link>
@@ -136,10 +161,8 @@ function Footer() {
         </div>
 
         <div className="footer__bottom">
+          <div className="footer__bottom-placeholder" aria-hidden="true" />
           <p>&copy; {new Date().getFullYear()} Tetrionyx Technologies. All rights reserved.</p>
-          <p className="footer__signature">
-            Building the future, one idea at a time.
-          </p>
           <button
             type="button"
             className="footer__back-to-top"
