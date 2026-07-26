@@ -397,7 +397,7 @@ function CareersApplyPage() {
                       value={formData.phone}
                       onChange={handleInputChange}
                       onBlur={handleBlur}
-                      placeholder="10-digit number"
+                      placeholder=""
                       disabled={isSubmitting}
                     />
                   </div>
