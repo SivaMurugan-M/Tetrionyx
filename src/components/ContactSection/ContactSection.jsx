@@ -4,10 +4,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import {
-  FaFacebookF,
-  FaLinkedinIn,
-  FaTwitter,
-  FaInstagram,
   FaSpinner
 } from 'react-icons/fa';
 import emailjs from '@emailjs/browser';
@@ -302,47 +298,6 @@ function ContactSection() {
               </div>
             </div>
 
-            {/* Social Square Links */}
-            <div className="contact-social-section">
-              <div className="contact-social-buttons">
-                <a
-                  href="https://facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Tetrionyx Technologies Facebook Page (Opens in new tab)"
-                  className="contact-social-btn"
-                >
-                  <FaFacebookF />
-                </a>
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Tetrionyx Technologies LinkedIn Page (Opens in new tab)"
-                  className="contact-social-btn"
-                >
-                  <FaLinkedinIn />
-                </a>
-                <a
-                  href="https://x.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Tetrionyx Technologies X Profile (Opens in new tab)"
-                  className="contact-social-btn"
-                >
-                  <FaTwitter />
-                </a>
-                <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Tetrionyx Technologies Instagram Profile (Opens in new tab)"
-                  className="contact-social-btn"
-                >
-                  <FaInstagram />
-                </a>
-              </div>
-            </div>
           </div>
 
           {/* Right Column: Contact Form floating card */}

@@ -8,6 +8,14 @@
     linear-gradient(180deg, #ffffff 0%, #fcfdff 100%);
 }
 
+@media (min-width: 1025px) {
+  .about-section {
+    min-height: clamp(450px, calc(100vh - var(--site-header-height, 85px)), 680px);
+    display: flex;
+    align-items: flex-start;
+  }
+}
+
 .about-section::after {
   position: absolute;
   right: -80px;
@@ -28,12 +36,12 @@
   z-index: 1;
   display: grid;
   width: min(1440px, calc(100% - clamp(2.5rem, 8vw, 8rem)));
-  min-height: 600px;
   margin-inline: auto;
   grid-template-columns: minmax(0, 39fr) minmax(0, 61fr);
   align-items: center;
-  gap: clamp(3rem, 7vw, 7.5rem);
-  padding-block: clamp(5rem, 8vw, 7.5rem);
+  gap: clamp(2rem, 5vw, 5rem);
+  padding-top: 1.5rem;
+  padding-bottom: clamp(1rem, 2vw, 2rem);
 }
 
 .about-section__content {
@@ -41,9 +49,9 @@
 }
 
 .about-section__eyebrow {
-  margin: 0 0 1rem;
+  margin: 0 0 0.5rem;
   color: #1875e8;
-  font-size: 0.82rem;
+  font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -52,7 +60,7 @@
 .about-section__title {
   margin: 0;
   color: #101a2d;
-  font-size: clamp(2.75rem, 4.3vw, 4.5rem);
+  font-size: clamp(2rem, 3.2vw, 3.2rem);
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.045em;
@@ -64,16 +72,16 @@
 
 .about-section__description {
   max-width: 470px;
-  margin: clamp(1.6rem, 3vw, 2.25rem) 0 0;
+  margin: clamp(1rem, 2vw, 1.5rem) 0 0;
   color: #5e6878;
-  font-size: 1rem;
-  line-height: 1.75;
+  font-size: 0.92rem;
+  line-height: 1.6;
 }
 
 .about-section__values {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1.25rem, 2.5vw, 2rem);
+  gap: clamp(1rem, 2vw, 1.5rem);
 }
 
 .about-section__value {
@@ -83,12 +91,12 @@
   --value-shadow: rgba(22, 119, 239, 0.13);
   display: grid;
   position: relative;
-  grid-template-columns: 84px minmax(0, 1fr);
-  min-height: 210px;
+  grid-template-columns: 70px minmax(0, 1fr);
+  min-height: clamp(160px, 14vw, 195px);
   overflow: hidden;
   align-items: center;
-  gap: 1.25rem;
-  padding: clamp(1.35rem, 2.2vw, 1.8rem);
+  gap: 1.1rem;
+  padding: 1.15rem 1.25rem;
   border: 1px solid #e1e9f3;
   border-radius: 20px;
   background-color: #ffffff;
@@ -168,11 +176,11 @@
 
 .about-section__icon {
   display: grid;
-  width: 84px;
+  width: 70px;
   aspect-ratio: 1;
   place-items: center;
   border-radius: 50%;
-  font-size: 2rem;
+  font-size: 1.7rem;
   transition: transform 220ms ease, box-shadow 220ms ease;
 }
 
@@ -215,38 +223,38 @@
 
 .about-section__value-content h3 {
   color: #172034;
-  font-size: 1.1rem;
+  font-size: 1.12rem;
   font-weight: 750;
 }
 
 .about-section__value-content p {
   max-width: 230px;
-  margin-top: 0.6rem;
+  margin-top: 0.45rem;
   color: #5f6979;
-  font-size: 0.94rem;
-  line-height: 1.65;
+  font-size: 0.88rem;
+  line-height: 1.5;
 }
 
 @media (max-width: 1100px) {
   .about-section__inner {
     width: min(1440px, calc(100% - 3rem));
     grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
-    gap: 3rem;
+    gap: 2.5rem;
   }
 
   .about-section__values {
-    gap: 1.25rem;
-  }
-
-  .about-section__value {
-    grid-template-columns: 68px minmax(0, 1fr);
-    min-height: 200px;
     gap: 1rem;
   }
 
+  .about-section__value {
+    grid-template-columns: 60px minmax(0, 1fr);
+    min-height: 150px;
+    gap: 0.85rem;
+  }
+
   .about-section__icon {
-    width: 68px;
-    font-size: 1.65rem;
+    width: 60px;
+    font-size: 1.4rem;
   }
 }
 
@@ -255,8 +263,8 @@
     width: 100%;
     min-height: auto;
     grid-template-columns: minmax(0, 1fr);
-    gap: 4rem;
-    padding: 5rem 2rem;
+    gap: 3rem;
+    padding: 3rem 2rem;
   }
 
   .about-section__content {
