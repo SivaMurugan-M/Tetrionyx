@@ -6,8 +6,9 @@
 .uiux-page__hero {
   position: relative;
   display: grid;
-  min-height: clamp(680px, calc(100svh - var(--site-header-height, 85px)), 880px);
-  overflow: hidden;
+  min-height: calc(100svh - var(--site-header-height, 85px));
+  overflow-y: visible;
+  overflow-x: hidden;
   align-items: center;
   background:
     radial-gradient(circle at 92% 12%, rgba(40, 142, 255, 0.15), transparent 29%),
@@ -38,8 +39,9 @@
   display: grid;
   grid-template-columns: minmax(0, 44fr) minmax(0, 56fr);
   align-items: center;
-  gap: clamp(2.5rem, 5vw, 5.5rem);
-  padding-block: clamp(4rem, 7vw, 6.5rem);
+  gap: clamp(1.5rem, 3vw, 3.5rem);
+  padding-top: clamp(1.5rem, 3vh, 2.5rem);
+  padding-bottom: clamp(2rem, 4vh, 3.5rem);
 }
 
 .uiux-page__content {
@@ -50,7 +52,7 @@
 
 .uiux-page__eyebrow,
 .uiux-page__section-heading > p {
-  margin: 0 0 1rem;
+  margin: 0 0 0.5rem;
   color: #1677ef;
   font-size: 0.88rem;
   font-weight: 800;
@@ -61,7 +63,7 @@
 .uiux-page__title {
   margin: 0;
   color: #101a2d;
-  font-size: clamp(3.2rem, 5.6vw, 6rem);
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
   font-weight: 800;
   line-height: 1.02;
   letter-spacing: -0.055em;
@@ -73,17 +75,17 @@
 
 .uiux-page__intro {
   max-width: 620px;
-  margin: 1.75rem 0 0;
+  margin: 1rem 0 0;
   color: #536176;
-  font-size: clamp(1rem, 1.4vw, 1.22rem);
-  line-height: 1.75;
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  line-height: 1.7;
 }
 
 .uiux-page__actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.9rem;
-  margin-top: 2.2rem;
+  margin-top: 1.5rem;
 }
 
 .uiux-page__button {
@@ -148,6 +150,7 @@
 .uiux-page__visual img {
   display: block;
   width: 100%;
+  max-height: min(520px, 60svh);
   height: auto;
   border: 1px solid rgba(157, 190, 228, 0.34);
   border-radius: 28px;
@@ -156,7 +159,7 @@
 }
 
 .uiux-page__capabilities {
-  padding-block: clamp(5rem, 9vw, 8rem);
+  padding-block: clamp(3rem, 6vh, 5rem);
   border-top: 1px solid #e6edf6;
   background: #ffffff;
 }
@@ -168,7 +171,7 @@
 .uiux-page__section-heading h2 {
   margin: 0;
   color: #101a2d;
-  font-size: clamp(2.7rem, 4.8vw, 5rem);
+  font-size: clamp(2.2rem, 3.8vw, 3.6rem);
   font-weight: 800;
   line-height: 1.06;
   letter-spacing: -0.045em;
@@ -178,7 +181,7 @@
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1.5rem;
-  margin-top: 3.5rem;
+  margin-top: 2rem;
 }
 
 .uiux-page__capability {
@@ -252,6 +255,10 @@
 }
 
 @media (max-width: 980px) {
+  .uiux-page__hero {
+    min-height: auto;
+  }
+
   .uiux-page__hero-inner {
     grid-template-columns: minmax(0, 1fr);
     gap: 3rem;
@@ -275,6 +282,23 @@
 
   .uiux-page__capability-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .uiux-page__process {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .uiux-page__process-step {
+    border-bottom: 1px solid #dbe5f1;
+  }
+
+  .uiux-page__process-step:nth-child(2n) {
+    border-right: 0;
+  }
+
+  .uiux-page__process-step:nth-child(3),
+  .uiux-page__process-step:nth-child(4) {
+    border-bottom: 0;
   }
 }
 
@@ -302,18 +326,6 @@
 
   .uiux-page__visual img {
     border-radius: 18px;
-  }
-
-  .uiux-page__process {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .uiux-page__process-step:nth-child(2) {
-    border-right: 0;
-  }
-
-  .uiux-page__process-step:nth-child(-n + 2) {
-    border-bottom: 1px solid #dbe5f1;
   }
 }
 

@@ -250,13 +250,15 @@
   background: #ffffff;
   box-shadow: -4px 0 30px rgba(0, 0, 0, 0.1);
   transform: translateX(100%);
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  visibility: hidden;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   overflow-y: auto;
   font-family: 'Poppins', sans-serif;
 }
 
 .header__mobile-nav--open {
   transform: translateX(0);
+  visibility: visible;
 }
 
 .header__mobile-list {
