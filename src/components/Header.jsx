@@ -78,8 +78,8 @@ function Header() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          const sectionId = entry.target.id;
           if (entry.isIntersecting) {
-            const sectionId = entry.target.id;
             setActiveSection(sectionId);
             sessionStorage.setItem('last_active_section', sectionId);
 
@@ -90,6 +90,21 @@ function Header() {
                 window.history.replaceState(null, '', targetPath);
               }
             }
+          } else {
+            setActiveSection((currentActive) => {
+              if (currentActive === sectionId) {
+                // If the section going out of view is the active one, clear it
+                // unless another observed section is still in viewport bounds
+                const otherIntersecting = elements.find(
+                  (el) =>
+                    el.id !== sectionId &&
+                    el.getBoundingClientRect().top < window.innerHeight &&
+                    el.getBoundingClientRect().bottom > 0
+                );
+                return otherIntersecting ? otherIntersecting.id : '';
+              }
+              return currentActive;
+            });
           }
         });
       },

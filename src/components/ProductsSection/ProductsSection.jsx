@@ -116,7 +116,6 @@ function ProductsSection() {
                   <div className="products-section__card-body">
                     <h3>{name}</h3>
                     <p>{description}</p>
-                    <Link to="/contact">View Details</Link>
                   </div>
                 </>
               )}
