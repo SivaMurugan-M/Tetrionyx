@@ -8,10 +8,15 @@
   --intro-exit-time: 0.9s;
   position: fixed;
   z-index: 1000;
-  inset: 0;
-  display: grid;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
-  place-items: center;
   color: #f8fbff;
   background:
     radial-gradient(circle at 50% 48%, rgba(14, 59, 118, 0.3), transparent 30%),
@@ -31,17 +36,15 @@
   position: absolute;
   inset: -40%;
   z-index: -2;
-  background: conic-gradient(
-    from 90deg,
-    transparent 0deg,
-    rgba(237, 28, 36, 0.08) 52deg,
-    transparent 92deg,
-    rgba(255, 176, 0, 0.06) 152deg,
-    transparent 200deg,
-    rgba(0, 170, 91, 0.07) 260deg,
-    rgba(9, 98, 215, 0.09) 315deg,
-    transparent 360deg
-  );
+  background: conic-gradient(from 90deg,
+      transparent 0deg,
+      rgba(237, 28, 36, 0.08) 52deg,
+      transparent 92deg,
+      rgba(255, 176, 0, 0.06) 152deg,
+      transparent 200deg,
+      rgba(0, 170, 91, 0.07) 260deg,
+      rgba(9, 98, 215, 0.09) 315deg,
+      transparent 360deg);
   filter: blur(60px);
   opacity: 0;
   animation: aurora-breathe 3.8s 250ms ease-in-out both;
@@ -84,13 +87,11 @@
   z-index: -1;
   inset: -32%;
   border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(222, 238, 255, 0.3) 0%,
-    rgba(87, 157, 255, 0.17) 28%,
-    rgba(25, 86, 171, 0.08) 48%,
-    transparent 72%
-  );
+  background: radial-gradient(circle,
+      rgba(222, 238, 255, 0.3) 0%,
+      rgba(87, 157, 255, 0.17) 28%,
+      rgba(25, 86, 171, 0.08) 48%,
+      transparent 72%);
   opacity: 0;
   content: '';
   animation: mark-light 1.4s 560ms ease-out forwards;
@@ -265,24 +266,53 @@
 }
 
 @keyframes intro-appear {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes intro-depart {
-  0% { opacity: 1; clip-path: inset(0); }
-  100% { opacity: 0; clip-path: inset(48% 0 48% 0); }
+  0% {
+    opacity: 1;
+    clip-path: inset(0);
+  }
+
+  100% {
+    opacity: 0;
+    clip-path: inset(48% 0 48% 0);
+  }
 }
 
 @keyframes aurora-breathe {
-  0% { opacity: 0; transform: rotate(0deg) scale(0.85); }
-  40% { opacity: 1; }
-  100% { opacity: 0.35; transform: rotate(18deg) scale(1.04); }
+  0% {
+    opacity: 0;
+    transform: rotate(0deg) scale(0.85);
+  }
+
+  40% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.35;
+    transform: rotate(18deg) scale(1.04);
+  }
 }
 
 @keyframes grid-reveal {
-  from { opacity: 0; background-position: 0 36px; }
-  to { opacity: 0.62; background-position: 0 0; }
+  from {
+    opacity: 0;
+    background-position: 0 36px;
+  }
+
+  to {
+    opacity: 0.62;
+    background-position: 0 0;
+  }
 }
 
 @keyframes wing-left-arrive {
@@ -291,15 +321,18 @@
     transform: translate3d(-150px, -9%, 0) rotateY(-42deg) rotateZ(-8deg) scale(0.8);
     filter: blur(8px) saturate(1.08);
   }
+
   48% {
     opacity: 0.95;
     transform: translate3d(-18px, -5%, 0) rotateY(18deg) rotateZ(3deg) scale(0.96);
     filter: blur(1px) saturate(1.08);
   }
+
   72% {
     opacity: 1;
     transform: translate3d(4px, 0.8%, 0) rotateY(-7deg) rotateZ(-1deg) scale(1.01);
   }
+
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0) rotateY(0) rotateZ(0) scale(1);
@@ -313,15 +346,18 @@
     transform: translate3d(150px, -9%, 0) rotateY(42deg) rotateZ(8deg) scale(0.8);
     filter: blur(8px) saturate(1.08);
   }
+
   48% {
     opacity: 0.95;
     transform: translate3d(18px, -5%, 0) rotateY(-18deg) rotateZ(-3deg) scale(0.96);
     filter: blur(1px) saturate(1.08);
   }
+
   72% {
     opacity: 1;
     transform: translate3d(-4px, 0.8%, 0) rotateY(7deg) rotateZ(1deg) scale(1.01);
   }
+
   100% {
     opacity: 1;
     transform: translate3d(0, 0, 0) rotateY(0) rotateZ(0) scale(1);
@@ -330,8 +366,15 @@
 }
 
 @keyframes mark-light {
-  from { opacity: 0; transform: scale(0.55); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.55);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @keyframes t-arrive {
@@ -341,16 +384,19 @@
     transform: translate3d(-50%, -9%, 0) scale(0.96);
     filter: blur(8px) drop-shadow(0 0 6px rgba(30, 120, 228, 0.1));
   }
+
   35% {
     opacity: 0.28;
     transform: translate3d(-50%, -5%, 0) scale(0.975);
     filter: blur(4px) drop-shadow(0 0 10px rgba(30, 120, 228, 0.22));
   }
+
   70% {
     opacity: 0.78;
     transform: translate3d(-50%, -1.5%, 0) scale(0.992);
     filter: blur(1px) drop-shadow(0 0 15px rgba(30, 120, 228, 0.34));
   }
+
   100% {
     opacity: 1;
     background-position: 50% 0;
@@ -360,33 +406,88 @@
 }
 
 @keyframes scan-mark {
-  0% { top: -8%; opacity: 0; }
-  20% { opacity: 0.9; }
-  80% { opacity: 0.65; }
-  100% { top: 108%; opacity: 0; }
+  0% {
+    top: -8%;
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0.9;
+  }
+
+  80% {
+    opacity: 0.65;
+  }
+
+  100% {
+    top: 108%;
+    opacity: 0;
+  }
 }
 
 @keyframes orbit-arrive {
-  0% { opacity: 0; transform: rotateX(68deg) rotateZ(-18deg) scale(0.6); }
-  35% { opacity: 1; }
-  100% { opacity: 0.42; transform: rotateX(68deg) rotateZ(22deg) scale(1); }
+  0% {
+    opacity: 0;
+    transform: rotateX(68deg) rotateZ(-18deg) scale(0.6);
+  }
+
+  35% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.42;
+    transform: rotateX(68deg) rotateZ(22deg) scale(1);
+  }
 }
 
 @keyframes letter-resolve {
-  0% { opacity: 0; transform: translate3d(0, 32px, 0) rotateX(-88deg) scale(0.82); filter: blur(8px); }
-  58% { opacity: 1; color: #ffffff; text-shadow: 0 0 20px var(--letter-glow); }
-  100% { opacity: 1; transform: translate3d(0, 0, 0) rotateX(0) scale(1); filter: blur(0); text-shadow: 0 0 28px var(--letter-glow); }
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 32px, 0) rotateX(-88deg) scale(0.82);
+    filter: blur(8px);
+  }
+
+  58% {
+    opacity: 1;
+    color: #ffffff;
+    text-shadow: 0 0 20px var(--letter-glow);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotateX(0) scale(1);
+    filter: blur(0);
+    text-shadow: 0 0 28px var(--letter-glow);
+  }
 }
 
 @keyframes signature-arrive {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes particle-drift {
-  0% { opacity: 0; transform: translate(0, 0) scale(0); }
-  22% { opacity: 0.8; }
-  100% { opacity: 0; transform: translate(calc(var(--particle-x) * var(--particle-scale, 1)), calc(var(--particle-y) * var(--particle-scale, 1))) scale(1); }
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0);
+  }
+
+  22% {
+    opacity: 0.8;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(calc(var(--particle-x) * var(--particle-scale, 1)), calc(var(--particle-y) * var(--particle-scale, 1))) scale(1);
+  }
 }
 
 @media (max-width: 560px) {
