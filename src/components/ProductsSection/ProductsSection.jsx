@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 import placementTestPreview from '../../assets/images/placement-preparation-test.jpg';
 import './ProductsSection.css';
 

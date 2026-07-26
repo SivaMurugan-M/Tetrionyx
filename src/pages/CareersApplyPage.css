@@ -155,7 +155,7 @@
 
 .careers-apply__form {
   display: grid;
-  gap: 1.2rem;
+  gap: 0.6rem;
   margin-top: 2rem;
 }
 
@@ -166,11 +166,25 @@
 }
 
 .careers-apply__form label:not(.careers-apply__consent) {
-  display: grid;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   gap: 0.55rem;
   color: #26354f;
   font-size: 0.87rem;
   font-weight: 700;
+  padding-bottom: 18px;
+}
+
+.careers-apply__field-error {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  color: #ef4545;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.2;
 }
 
 .careers-apply__form input:not([type="checkbox"]),
@@ -366,9 +380,9 @@
 }
 
 .careers-apply__country-code {
-  width: 95px !important;
-  min-width: 95px !important;
+  width: 108px !important;
+  min-width: 108px !important;
   flex: 0 0 auto;
-  padding-right: 1.8rem !important;
-  background-position: right 0.5rem center !important;
+  padding-right: 1.6rem !important;
+  background-position: right 0.4rem center !important;
 }

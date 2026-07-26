@@ -75,8 +75,8 @@ function ContactSection() {
       case 'email':
         if (!value.trim()) {
           error = 'Your email address is required.';
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())) {
-          error = 'Please enter a valid email address.';
+        } else if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(value.trim())) {
+          error = 'Enter the valid email';
         }
         break;
       case 'message':

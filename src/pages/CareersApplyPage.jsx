@@ -44,8 +44,8 @@ function CareersApplyPage() {
       case 'email':
         if (!value.trim()) {
           error = 'Email address is required.';
-        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())) {
-          error = 'Please enter a valid email address.';
+        } else if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(value.trim())) {
+          error = 'Enter the valid email';
         }
         break;
       case 'role':
@@ -69,8 +69,14 @@ function CareersApplyPage() {
         }
         break;
       case 'phone':
-        if (value && value.length !== 10) {
-          error = 'Phone number must be exactly 10 digits.';
+        if (!value) {
+          error = 'Phone number is required.';
+        } else {
+          const digitsOnly = value.replace(/\D/g, '');
+          const isValidUS = (digitsOnly.length === 10) || (digitsOnly.length === 11 && digitsOnly.startsWith('1'));
+          if (!isValidUS) {
+            error = 'Please enter a valid United States phone number.';
+          }
         }
         break;
       default:
@@ -84,7 +90,7 @@ function CareersApplyPage() {
     let val = type === 'checkbox' ? checked : value;
 
     if (name === 'phone') {
-      val = value.replace(/\D/g, '').slice(0, 10);
+      val = value.replace(/[^0-9\s()+-]/g, '').slice(0, 17);
     }
 
     setFormData((prev) => ({ ...prev, [name]: val }));
@@ -115,6 +121,7 @@ function CareersApplyPage() {
     const allTouched = {
       name: true,
       email: true,
+      phone: true,
       role: true,
       experience: true,
       message: true,
@@ -348,7 +355,7 @@ function CareersApplyPage() {
                     required
                   />
                   {touched.name && errors.name && (
-                    <span style={{ color: '#ef4545', fontSize: '0.8rem', fontWeight: 500 }}>{errors.name}</span>
+                    <span className="careers-apply__field-error">{errors.name}</span>
                   )}
                 </label>
                 <label>
@@ -364,14 +371,14 @@ function CareersApplyPage() {
                     required
                   />
                   {touched.email && errors.email && (
-                    <span style={{ color: '#ef4545', fontSize: '0.8rem', fontWeight: 500 }}>{errors.email}</span>
+                    <span className="careers-apply__field-error">{errors.email}</span>
                   )}
                 </label>
               </div>
 
               <div className="careers-apply__row">
-                <label>
-                  <span>Phone number</span>
+                <label style={{ display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', position: 'relative', paddingBottom: '18px' }}>
+                  <span>Phone number *</span>
                   <div className="careers-apply__phone-group">
                     <select
                       name="countryCode"
@@ -399,10 +406,11 @@ function CareersApplyPage() {
                       onBlur={handleBlur}
                       placeholder=""
                       disabled={isSubmitting}
+                      required
                     />
                   </div>
                   {touched.phone && errors.phone && (
-                    <span style={{ color: '#ef4545', fontSize: '0.8rem', fontWeight: 500 }}>{errors.phone}</span>
+                    <span className="careers-apply__field-error">{errors.phone}</span>
                   )}
                 </label>
                 <label>
@@ -424,7 +432,7 @@ function CareersApplyPage() {
                     <option>General Application</option>
                   </select>
                   {touched.role && errors.role && (
-                    <span style={{ color: '#ef4545', fontSize: '0.8rem', fontWeight: 500 }}>{errors.role}</span>
+                    <span className="careers-apply__field-error">{errors.role}</span>
                   )}
                 </label>
               </div>
@@ -447,7 +455,7 @@ function CareersApplyPage() {
                     <option>5+ years</option>
                   </select>
                   {touched.experience && errors.experience && (
-                    <span style={{ color: '#ef4545', fontSize: '0.8rem', fontWeight: 500 }}>{errors.experience}</span>
+                    <span className="careers-apply__field-error">{errors.experience}</span>
                   )}
                 </label>
                 <label>
@@ -462,7 +470,7 @@ function CareersApplyPage() {
                     disabled={isSubmitting}
                   />
                   {touched.portfolio && errors.portfolio && (
-                    <span style={{ color: '#ef4545', fontSize: '0.8rem', fontWeight: 500 }}>{errors.portfolio}</span>
+                    <span className="careers-apply__field-error">{errors.portfolio}</span>
                   )}
                 </label>
               </div>
@@ -479,7 +487,7 @@ function CareersApplyPage() {
                   required
                 />
                 {touched.message && errors.message && (
-                  <span style={{ color: '#ef4545', fontSize: '0.8rem', fontWeight: 500 }}>{errors.message}</span>
+                  <span className="careers-apply__field-error">{errors.message}</span>
                 )}
               </label>
 
