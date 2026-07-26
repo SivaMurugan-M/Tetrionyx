@@ -325,3 +325,17 @@
     transform: translateY(0);
   }
 }
+
+.careers-apply__phone-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.careers-apply__country-code {
+  width: 95px !important;
+  min-width: 95px !important;
+  flex: 0 0 auto;
+  padding-right: 1.8rem !important;
+  background-position: right 0.5rem center !important;
+}
+
