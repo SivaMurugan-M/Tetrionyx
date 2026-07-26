@@ -29,6 +29,9 @@ function UiUxDesignPage() {
     window.scrollTo({ top: 0, behavior: 'auto' });
   }, []);
 
+
+
+
   return (
     <div className="uiux-page">
       <section className="uiux-page__hero" aria-labelledby="uiux-page-title">
