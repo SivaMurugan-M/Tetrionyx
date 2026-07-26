@@ -328,6 +328,49 @@
   .services-section__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  /* Disable hover effects on mobile/tablet */
+  .services-section__grid--visible .services-section__card:hover {
+    top: 0;
+    border-color: #e9eef5;
+    box-shadow: 0 10px 30px -10px rgba(9, 30, 66, 0.05), 0 1px 4px rgba(9, 30, 66, 0.02);
+  }
+
+  .services-section__card:hover .services-section__icon {
+    color: var(--service-colour);
+    background: var(--service-tint);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: none;
+    box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.4), 0 4px 10px rgba(0, 0, 0, 0.02);
+  }
+
+  .services-section__card:hover .services-section__icon-glow {
+    opacity: 0.1;
+    transform: translate(-50%, -50%) scale(0.85);
+  }
+
+  .services-section__card:hover .services-section__card-glow {
+    opacity: 0.02;
+    transform: none;
+  }
+
+  .services-section__card:hover .services-section__learn-more {
+    color: #475569;
+  }
+
+  .services-section__card:hover .services-section__arrow {
+    transform: none;
+  }
+
+  .services-section__card:hover .services-section__accent {
+    width: 0%;
+  }
+
+  /* Press click feedback pop animation */
+  .services-section__card:active {
+    transform: scale(0.97) !important;
+    transition: transform 0.12s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  }
 }
 
 @media (max-width: 560px) {
