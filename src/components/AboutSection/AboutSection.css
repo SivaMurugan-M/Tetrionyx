@@ -91,6 +91,7 @@
   --value-shadow: rgba(22, 119, 239, 0.13);
   display: grid;
   position: relative;
+  top: 0;
   grid-template-columns: 70px minmax(0, 1fr);
   min-height: clamp(160px, 14vw, 195px);
   overflow: hidden;
@@ -103,9 +104,13 @@
   box-shadow: 0 14px 35px rgba(35, 66, 105, 0.07);
   opacity: 0;
   transform: translateY(28px) scale(0.98);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  outline: 1px solid transparent;
   transition:
     opacity 650ms cubic-bezier(0.22, 1, 0.36, 1),
     transform 650ms cubic-bezier(0.22, 1, 0.36, 1),
+    top 220ms cubic-bezier(0.22, 1, 0.36, 1),
     border-color 220ms ease,
     background-color 220ms ease,
     box-shadow 220ms ease;
@@ -165,7 +170,7 @@
   border-color: var(--value-accent);
   background-color: var(--value-tint);
   box-shadow: 0 22px 45px var(--value-shadow);
-  transform: translateY(-7px) scale(1.01);
+  top: -7px;
   transition-delay: 0ms;
 }
 
@@ -223,7 +228,7 @@
 
 .about-section__value-content h3 {
   color: #172034;
-  font-size: 1.12rem;
+  font-size: 1.125rem;
   font-weight: 750;
 }
 
@@ -231,7 +236,7 @@
   max-width: 230px;
   margin-top: 0.45rem;
   color: #5f6979;
-  font-size: 0.88rem;
+  font-size: 0.875rem;
   line-height: 1.5;
 }
 
