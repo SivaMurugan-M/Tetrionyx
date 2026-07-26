@@ -9,6 +9,7 @@ function CareersApplyPage() {
     name: '',
     email: '',
     phone: '',
+    countryCode: '+91',
     role: '',
     experience: '',
     portfolio: '',
@@ -67,6 +68,11 @@ function CareersApplyPage() {
           error = 'You must agree to share details for recruitment purposes.';
         }
         break;
+      case 'phone':
+        if (value && value.length !== 10) {
+          error = 'Phone number must be exactly 10 digits.';
+        }
+        break;
       default:
         break;
     }
@@ -75,7 +81,12 @@ function CareersApplyPage() {
 
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
-    const val = type === 'checkbox' ? checked : value;
+    let val = type === 'checkbox' ? checked : value;
+
+    if (name === 'phone') {
+      val = value.replace(/\D/g, '').slice(0, 10);
+    }
+
     setFormData((prev) => ({ ...prev, [name]: val }));
     setIsSuccess(false);
     setSubmitError('');
@@ -141,7 +152,7 @@ function CareersApplyPage() {
         const payload = {
           name: formData.name,
           email: formData.email,
-          phone: formData.phone || 'Not provided',
+          phone: formData.phone ? `${formData.countryCode} ${formData.phone}` : 'Not provided',
           role: formData.role,
           experience: formData.experience,
           portfolio: formData.portfolio || 'Not provided',
@@ -249,6 +260,7 @@ function CareersApplyPage() {
           name: '',
           email: '',
           phone: '',
+          countryCode: '+91',
           role: '',
           experience: '',
           portfolio: '',
@@ -360,15 +372,38 @@ function CareersApplyPage() {
               <div className="careers-apply__row">
                 <label>
                   <span>Phone number</span>
-                  <input
-                    name="phone"
-                    type="tel"
-                    autoComplete="tel"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    onBlur={handleBlur}
-                    disabled={isSubmitting}
-                  />
+                  <div className="careers-apply__phone-group">
+                    <select
+                      name="countryCode"
+                      value={formData.countryCode}
+                      onChange={handleInputChange}
+                      disabled={isSubmitting}
+                      className="careers-apply__country-code"
+                    >
+                      <option value="+91">+91 (IN)</option>
+                      <option value="+1">+1 (US)</option>
+                      <option value="+44">+44 (UK)</option>
+                      <option value="+61">+61 (AU)</option>
+                      <option value="+971">+971 (AE)</option>
+                      <option value="+65">+65 (SG)</option>
+                      <option value="+81">+81 (JP)</option>
+                      <option value="+49">+49 (DE)</option>
+                      <option value="+33">+33 (FR)</option>
+                    </select>
+                    <input
+                      name="phone"
+                      type="tel"
+                      autoComplete="tel"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      onBlur={handleBlur}
+                      placeholder="10-digit number"
+                      disabled={isSubmitting}
+                    />
+                  </div>
+                  {touched.phone && errors.phone && (
+                    <span style={{ color: '#ef4545', fontSize: '0.8rem', fontWeight: 500 }}>{errors.phone}</span>
+                  )}
                 </label>
                 <label>
                   <span>Role of interest *</span>
