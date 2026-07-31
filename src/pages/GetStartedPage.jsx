@@ -56,7 +56,7 @@ function GetStartedPage() {
       ].join('\n')
     );
 
-    window.location.href = `mailto:hello@tetrionyx.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:tetrionyx@gmail.com?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -88,8 +88,8 @@ function GetStartedPage() {
             <div className="get-started__direct-contact">
               <p>Prefer to contact us directly?</p>
               <div>
-                <a href="mailto:marivignesh242004@gmail.com">
-                  <HiEnvelope aria-hidden="true" /> marivignesh242004@gmail.com
+                <a href="mailto:tetrionyx@gmail.com">
+                  <HiEnvelope aria-hidden="true" /> tetrionyx@gmail.com
                 </a>
               </div>
             </div>
