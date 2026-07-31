@@ -183,7 +183,7 @@ function CareersApplyPage() {
               portfolio_link: payload.portfolio,
               message: payload.message,
               submission_date: payload.submission_date_time,
-              to_email: 'sivamurugan04012004@gmail.com'
+              to_email: 'tetrionyx@gmail.com'
             },
             publicKey
           );
@@ -232,7 +232,7 @@ function CareersApplyPage() {
           }
         } else {
           // FormSubmit Fallback with autoresponse to candidate
-          const response = await fetch('https://formsubmit.co/ajax/sivamurugan04012004@gmail.com', {
+          const response = await fetch('https://formsubmit.co/ajax/tetrionyx@gmail.com', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

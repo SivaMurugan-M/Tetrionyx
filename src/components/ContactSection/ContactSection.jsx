@@ -150,7 +150,7 @@ function ContactSection() {
           email: formData.email,
           message: formData.message,
           submission_date_time: new Date().toLocaleString(),
-          to_email: 'sivamurugan04012004@gmail.com'
+          to_email: 'tetrionyx@gmail.com'
         };
 
         if (serviceId && templateId && publicKey) {
@@ -209,8 +209,8 @@ function ContactSection() {
             throw new Error(resData.message || 'Web3Forms submission failed');
           }
         } else {
-          // Send directly via FormSubmit zero-config endpoint to sivamurugan04012004@gmail.com
-          const response = await fetch('https://formsubmit.co/ajax/sivamurugan04012004@gmail.com', {
+          // Send directly via FormSubmit zero-config endpoint to tetrionyx@gmail.com
+          const response = await fetch('https://formsubmit.co/ajax/tetrionyx@gmail.com', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -291,8 +291,8 @@ function ContactSection() {
               <div className="contact-detail-row">
                 <span className="contact-detail-row__icon" role="img" aria-label="Email">✉️</span>
                 <span className="contact-detail-row__text">
-                  <a href="mailto:Test@Tetrionyx.com" className="contact-detail-row__link">
-                    Test@Tetrionyx.com
+                  <a href="mailto:tetrionyx@gmail.com" className="contact-detail-row__link">
+                    tetrionyx@gmail.com
                   </a>
                 </span>
               </div>
